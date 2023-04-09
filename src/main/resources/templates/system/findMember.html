@@ -1,0 +1,245 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Myeongjo&display=swap" rel="stylesheet">
+    <!--    <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">-->
+    <!--    <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">-->
+    <link rel="stylesheet" href="/assets/css/findMember.css" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<!--<p class="tip">끼룩로드</p>-->
+
+<div id="container" class="container">
+    <!-- FORM SECTION -->
+    <div class="row">
+        <!-- 비밀번호 찾기 -->
+        <div class="col align-items-center flex-col sign-up">
+            <div class="form-wrapper align-items-center">
+                <div class="form sign-up">
+
+                    <div class="input-group">
+                        <i class='bx bxs-user'></i>
+                        <label for="midPwd" id="id"></label>
+                        <input type="text" name="mnamePwd" id="midPwd" placeholder="아이디를 입력해주세요 (5~15 글자)"/>
+                    </div>
+
+                    <div class="input-group">
+                        <i class='bx bxs-user'></i>
+                        <label for="memail" id="mailTxt"></label>
+                        <input type="text" name="memail" id="memail" placeholder="이메일을 입력해주세요"/><br/><br/>
+                        <button type="button" id="checkEmail" style="font-size: 1rem">인증번호 발송</button>
+                    </div>
+
+                    <div class="input-group">
+                        <i class='bx bxs-lock-alt'></i>
+                        <label for="memailconfirm" id="memailconfirmTxt"></label>
+                        <input type="text" id="memailconfirm" placeholder="인증번호를 입력해주세요"/>
+                    </div>
+
+                    <button type="button" id="findPwd" style="font-size: 1rem">비밀번호 찾기</button>
+                    <p><br/>
+                    <p>
+                            <button onclick="location.href='/system/login'" style="font-size: 1rem">로그인 하러가기</button>
+                    </p>
+                    <button onclick="toggle()" class="pointer" style="font-size: 1rem">아이디 찾기</button>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+        <!-- END SIGN UP -->
+        <!-- 아이디 찾기 -->
+        <div class="col align-items-center flex-col sign-in">
+            <div class="form-wrapper align-items-center">
+                <div class="form sign-in">
+
+                    <div class="input-group">
+                        <i class='bx bxs-user'></i>
+                        <label for="mnameID" id="nameTxt"></label>
+                        <input type="text" name="mnameID" id="mnameID" placeholder="이름을 입력해주세요"/>
+                    </div>
+
+                    <div class="input-group">
+                        <i class='bx bxs-lock-alt'></i>
+                        <label for="memailID" id="emailTxt"></label>
+                        <input type="text" name="memailID" id="memailID" placeholder="이메일을 입력해주세요"/>
+                    </div>
+
+                    <button type="button" id="findID" style="font-size: 1rem">아이디 찾기</button><br/><br/>
+                    <p>
+                        <button onclick="toggle()" class="pointer" style="font-size: 1rem">
+                            비밀번호 찾기
+                        </button>
+                    </p>
+                    <p>
+                        <b>
+                            <button onclick="location.href='/system/login'" style="font-size: 1rem">로그인 하러가기</button>
+                        </b>
+                    </p>
+                </div>
+            </div>
+            <div class="form-wrapper">
+
+            </div>
+        </div>
+        <!-- END SIGN IN -->
+    </div>
+    <!-- END FORM SECTION -->
+    <!-- CONTENT SECTION -->
+    <div class="row content-row">
+        <!-- SIGN IN CONTENT -->
+        <div class="col align-items-center flex-col">
+            <div class="text sign-in">
+                <h2>
+                    ID 찾기
+                </h2>
+
+            </div>
+            <div class="img sign-in">
+
+            </div>
+        </div>
+        <!-- END SIGN IN CONTENT -->
+        <!-- SIGN UP CONTENT -->
+        <div class="col align-items-center flex-col">
+            <div class="img sign-up">
+
+            </div>
+            <div class="text sign-up">
+                <h2>
+                    PASSWORD 찾기
+                </h2>
+
+            </div>
+        </div>
+        <!-- END SIGN UP CONTENT -->
+    </div>
+    <!-- END CONTENT SECTION -->
+</div>
+
+</body>
+
+<script>
+    let container = document.getElementById('container')
+    let emconfirmchk = false; // 이메일 인증
+
+    toggle = () => {
+        container.classList.toggle('sign-in')
+        container.classList.toggle('sign-up')
+    }
+
+    setTimeout(() => {
+        container.classList.add('sign-in')
+    }, 200)
+
+    $(function () {
+        let $mnameID = $("#mnameID");
+        let $memailID = $("#memailID");
+        let $idText = $("#idText");
+
+        let $midPwd = $("#midPwd");
+        let $memail = $("#memail");
+        let $memailconfirm = $("#memailconfirm");
+        let $memailconfirmTxt = $("#memailconfirmTxt");
+
+        let $checkEmail = $("#checkEmail");
+
+
+        $("#findID").click(function () {
+
+            $.ajax({
+                type: "POST",
+                url: "/login/findMemberID",
+                data: {
+                    "mname": $mnameID.val(),
+                    "memailID": $memailID.val()
+                },
+                success: function (data) {
+                    if (data == "") {
+                        //console.log("없음!")
+                        alert("이름 또는 이메일이 일치하지 않습니다!")
+                    } else {
+                        //console.log("data :"+data)
+                        alert("회원님의 아이디 : " + data)
+                    }
+                }
+            })
+        })
+
+        $("#findPwd").click(function () {
+
+            $.ajax({
+                type: "POST",
+                url: "/login/findMemberPwd",
+                data: {
+                    "mid": $midPwd.val(),
+                    "memail": $memail.val(),
+                    "memailconfirm": $memailconfirm.val()
+                },
+                success: function (data) {
+                    console.log("변경완료" + data)
+                    alert("회원님의 임시 비밀번호를 이메일로 발송하였습니다. 확인부탁드립니다.")
+
+                }
+            })
+        })
+
+        // 이메일 인증번호
+        $checkEmail.click(function () {
+            $.ajax({
+                type: "POST",
+                url: "mailConfirm",
+                data: {
+                    "email": $memail.val()
+                },
+                success: function (data) {
+                    alert("해당 이메일로 인증번호 발송이 완료되었습니다. \n 확인부탁드립니다.")
+                    console.log("data : " + data);
+                    chkEmailConfirm(data, $memailconfirm, $memailconfirmTxt);
+                }
+            })
+        })
+    })
+
+    // 이메일 인증번호 체크 함수
+    function chkEmailConfirm(data, $memailconfirm, $memailconfirmTxt) {
+        $memailconfirm.on("keyup", function () {
+            if (data != $memailconfirm.val()) { //
+                emconfirmchk = false;
+                $memailconfirmTxt.html("<span id='emconfirmchk'>인증번호가 잘못되었습니다</span>")
+                $("#emconfirmchk").css({
+                    "color": "#FA3E3E",
+                    "font-weight": "bold",
+                    "font-size": "1rem"
+                })
+                //console.log("중복아이디");
+            } else { // 아니면 중복아님
+                emconfirmchk = true;
+                $memailconfirmTxt.html("<span id='emconfirmchk'>인증번호 확인 완료</span>")
+                $("#emconfirmchk").css({
+                    "color": "#0D6EFD",
+                    "font-weight": "bold",
+                    "font-size": "1rem"
+                })
+            }
+        })
+    }
+
+
+</script>
+<style>
+    body{
+        background-image: url("/images/background.png");
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+    }
+</style>
+</html>

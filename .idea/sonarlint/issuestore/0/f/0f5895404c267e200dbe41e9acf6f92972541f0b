@@ -1,0 +1,23 @@
+
+d
+java:S1192n"GDefine a constant instead of duplicating this literal "member" 4 times.(àŒı×8Ãã¯şæ0
+[
+java:S4684%"@Replace this persistent entity with a simple POJO or DTO object.(ÒËÄßùÿÿÿÿ
+S	java:S106&"9Replace this use of System.out or System.err by a logger.(ÄÔŸ³şÿÿÿÿ
+S	java:S106'"9Replace this use of System.out or System.err by a logger.(¨¿åÿÿÿÿÿÿ
+N	java:S106E"9Replace this use of System.out or System.err by a logger.(Ììñí
+S	java:S106G"9Replace this use of System.out or System.err by a logger.(’¿Ú°ıÿÿÿÿ
+N	java:S106O"9Replace this use of System.out or System.err by a logger.(ÿ£Õ¡
+U	java:S106V"9Replace this use of System.out or System.err by a logger.(‡á×8Ş´¯şæ0
+U	java:S106Y"9Replace this use of System.out or System.err by a logger.(Ÿçâø8Ùã¯şæ0
+Z	java:S106\"9Replace this use of System.out or System.err by a logger.(ÍüŞşúÿÿÿÿ8Úã¯şæ0
+Z	java:S106g"9Replace this use of System.out or System.err by a logger.(¼Á—âÿÿÿÿÿ8Ûã¯şæ0
+^	java:S125"<This block of commented-out lines of code should be removed.(†£Œúÿÿÿÿ8Şã¯şæ0
+U	java:S106¼"9Replace this use of System.out or System.err by a logger.(şĞÌ<8Şã¯şæ0
+[	java:S106Ç"9Replace this use of System.out or System.err by a logger.(Ş©İôùÿÿÿÿ8ßã¯şæ0
+V	java:S106È"9Replace this use of System.out or System.err by a logger.(Ã‚Ë8àã¯şæ0
+V	java:S106Ò"9Replace this use of System.out or System.err by a logger.(§²†8àã¯şæ0
+^	java:S125Ù"<This block of commented-out lines of code should be removed.(é½Üöÿÿÿÿÿ8áã¯şæ0
+R	java:S125æ"<This block of commented-out lines of code should be removed.(»•“
+^	java:S125é"<This block of commented-out lines of code should be removed.(š˜ÀÖıÿÿÿÿ8âã¯şæ0
+Y	java:S125ë"<This block of commented-out lines of code should be removed.(•ÌºÂ8âã¯şæ0

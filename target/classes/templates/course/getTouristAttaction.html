@@ -1,0 +1,215 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+
+<head>
+    <title>끼룩로드 주변관광지</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <script type="text/javascript"
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=300f0c824f4ae684bf3678511271fd68&libraries=services"></script>
+    <script type="text/javascript" src="/assets/js/pointlocationService.js"></script>
+    <link href="../assets/css/main.css" rel="stylesheet"/>
+    <link href="../assets/css/map.css" rel="stylesheet"/>
+</head>
+
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Main -->
+    <div id="main">
+        <div class="inner">
+
+            <!-- Header -->
+            <header id="header">
+                <a href="/" class="logo"><h1>끼룩로드</h1></a>
+                <ul class="icons">
+                    <li sec:authorize="!isAuthenticated()"><a th:href="@{/system/login}">로그인/회원가입</a></li>
+                    <li sec:authorize="isAuthenticated()" sec:authentication="principal.member.nickName"></li>
+                    <li sec:authorize="isAuthenticated()"><a th:href="@{/system/mypage}">마이페이지</a></li>
+                    <li sec:authorize="isAuthenticated()"><a th:href="@{/system/logout}">로그아웃</a></li>
+                </ul>
+            </header>
+
+
+            <!-- Banner -->
+            <section id="banner">
+                <div class="content">
+                    <header>
+                        <h2>
+                            <strong><span th:text="${touristList.getName()}"/></strong>
+                        </h2>
+                        <h3><span th:text="${touristList.getTitle()}"/></h3>
+
+                    </header>
+                    <table>
+                        <tr>
+                            <td>
+                                <h3><strong><h3>유래</h3></strong></h3>
+                                <p><strong><span th:text="${touristList.getText()}"/></strong></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h3><strong><h3>장소</h3></strong></h3>
+                                <p><strong><span th:text="${touristList.getPlace()}"/></strong></p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <span class="image object">
+                        <img th:src="${touristList.getMainImage()}" alt=""/>
+                </span>
+            </section>
+            <section>
+                <header>
+                    <h2>
+                        <strong>지도</strong>
+                    </h2>
+                </header>
+                <div class="map1">
+                    <div id="map">
+                        <input type="hidden" id="latitude" th:value="${touristList.getLatitude()}"/>
+                        <input type="hidden" id="longitude" th:value="${touristList.getLongtitude()}"/>
+                        <input type="hidden" id="id" th:value="${touristList.getName()}"/>
+                    </div>
+
+
+                    <div class="image object" id="roadview">
+                    </div>
+
+                    <div class="hAddr">
+                        <span class="title"><h3><strong>주소정보</strong></h3></span>
+                        <span id="centerAddr"></span>
+                    </div>
+
+
+                </div>
+
+                </span>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <div class="inner">
+            <section id="sideLogo" class="alt">
+                <a href="/">
+                    <img src="/images/logo.png">
+                </a>
+            </section>
+            <!-- Menu -->
+            <nav id="menu">
+                <header class="major">
+                    <h2>Menu</h2>
+                </header>
+                <ul>
+                    <li><a href="/">홈페이지</a></li>
+                    <li><a href="/road/informationRoad">갈맷길 정보</a></li>
+                    <li>
+                        <span class="opener">갈맷길 코스안내</span>
+                        <ul>
+                            <tr th:each="course, state1 : ${courseList}">
+                                <li><a th:href="@{/road/getRoadList(courseID=${course.getCourseID()},index=0)}"><span
+                                        th:text="${state1.index+1+'코스'}"/></a></li>
+                            </tr>
+                        </ul>
+                    </li>
+                    <li>
+                        <span class="opener">게시판</span>
+                        <ul>
+                            <li><a href="../board/getReportBoardList">신고게시판</a></li>
+                            <li><a href="../board/getFreeBoardList">자유게시판</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="../QR/QRGuide">QR체크</a></li>
+                    <li><a href="../shop/productsList">포인트 쇼핑몰</a></li>
+                    <li sec:authorize="hasAnyRole('ROLE_ADMIN')">
+                        <span class="opener">관리자 모드</span>
+                        <ul>
+                            <li>
+                                <span> 정보 가져오기 </span>
+                                <ul>
+                                    <li><a href="/json/insertCourse">코스 가져오기</a></li>
+                                    <li><a href="/json/roadJson">구간 가져오기</a></li>
+                                    <li><a href="/json/touristJson">여행지 정보 가져오기</a></li>
+                                    <li><a href="/json/toiletJson">화장실 정보 가져오기</a></li>
+                                    <li><a href="/json/restaurantJson">식당 정보 가져오기</a></li>
+                                    <li><a href="/json/hotelJson">숙박업소 정보 가져오기</a></li>
+                                    <li><a href="/json/photoZoneJson">포토존 정보 가져오기</a></li>
+                                    <li><a href="/json/allJSON">모든 정보 가져오기</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <span> 엑셀 다운로드 </span>
+                                <ul>
+                                    <li><a th:href="@{/excel/courseDownload}">코스 정보 엑셀 다운로드</a></li>
+                                    <li><a th:href="@{/excel/roadDownload}">구간 정보 엑셀 다운로드</a></li>
+                                    <li><a th:href="@{/excel/toiletDownload}">화장실 정보 엑셀 다운로드</a></li>
+                                    <li><a th:href="@{/excel/ptozoneDownload}">포토존 정보 엑셀 다운로드</a></li>
+                                    <li><a th:href="@{/excel/TouristDownload}">여행지 정보 엑셀 다운로드</a></li>
+                                    <li><a th:href="@{/excel/HotelDownload}">호텔 정보 엑셀 다운로드</a></li>
+                                    <li><a th:href="@{/excel/restaurantDownload}">레스토랑 정보 엑셀 다운로드</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <span> 정보 추가,수정,삭제 </span>
+                                <ul>
+                                    <li><a th:href="@{/excel/insert}">구간 정보 엑셀</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <!-- Section -->
+            <section>
+                <header class="major">
+                    <h2>Team. SixSense</h2>
+                </header>
+                <p>클라우드 No.1 메가존클라우드와 함께하는</p>
+                <p>클라우드 네이티브 애플리케이션 개발자 양성과정</p>
+                <ul class="contact">
+                    <li class="icon solid fa-handshake">광안대교 2반 3조</li>
+                    <li class="icon solid fa-users">
+                        <p>김석림 김지훈 손용균</p>
+                        <p>윤기영 전민재 정수승</p>
+                    </li>
+                    <li class="icon solid fa-home">
+                        <p>부산광역시 해운대구 센텀동로 41</p>
+                        <p>센텀벤처타운 5층 광안대교 2반</p>
+                    </li>
+                </ul>
+            </section>
+            <!-- Footer -->
+            <footer id="footer">
+                <p class="copyright">&copy; SixSense. All rights reserved. Demo Images: <a
+                        href="https://busan.go.kr">부산광역시, </a><a href="https://galmaetgil.org">걷고싶은부산.</a> Design: <a
+                        href="https://html5up.net">HTML5
+                    UP</a>.</p>
+            </footer>
+        </div>
+    </div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../assets/js/jquery.min.js"></script>
+<script src="../assets/js/browser.min.js"></script>
+<script src="../assets/js/breakpoints.min.js"></script>
+<script src="../assets/js/util.js"></script>
+<script src="../assets/js/main.js"></script>
+
+
+</body>
+
+</html>

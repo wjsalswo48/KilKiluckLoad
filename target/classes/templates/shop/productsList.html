@@ -1,0 +1,270 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+	<title>뽀인트 샵</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="/assets/css/main.css" />
+</head>
+
+<body class="is-preload">
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<div id="main">
+			<div class="inner">
+
+
+			            <!-- Header -->
+            <header id="header">
+                <a href="/" class="logo"><h1>끼룩로드</h1></a>
+                <ul class="icons">
+                    <li sec:authorize="!isAuthenticated()"><a th:href="@{/system/login}">로그인/회원가입</a></li>
+                    <li sec:authorize="isAuthenticated()" sec:authentication="principal.member.nickName"></li>
+                    <li sec:authorize="isAuthenticated()"><a th:href="@{/system/mypage}">마이페이지</a></li>
+                    <li sec:authorize="isAuthenticated()"><a th:href="@{/system/logout}">로그아웃</a></li>
+					<li sec:authorize="hasAnyRole('ROLE_ADMIN')"><a th:href="@{/shop/insertProduct}">상품등록</a></li>
+					<li sec:authorize="hasAnyRole('ROLE_ADMIN')"><a th:href="@{/excel/downloadDelivery}">배송지 리스트 다운</a></li>
+                </ul>
+            </header>
+
+
+<!-- 리스트 리스트 리스트 리스트 리스트 리스트 리스트 리스트 리스트 리스트 리스트 리스트 리스트 리스트 -->
+
+
+
+				<section>
+					<header class="major">
+						<h2>포인트 SHOP </h2>
+						<span th:text="${'현재 보유 포인트 : '+#numbers.formatInteger(member.totalPoint,0,'COMMA')+ ' point'}"></span>
+					</header>
+				
+				<div class="posts">
+              
+                <table>
+                    <tr th:each="product, state : ${productsList}">
+                        <article>
+                            <h3>
+							상품명 : 
+							<span th:text="${product.name}"></span>
+                            </h3>
+                            <br/>
+						<a class="image">
+						
+						<img th:src="|/shop/images/${product.fileID}|" alt="" width="150"
+                         height="150" style="text-align: center;"/>
+						</a>
+						<br/>
+						포인트 가격 : <span name="listPointPrice" style="font-size:large; font-style: italic; font-weight: bolder;"
+						 th:text="${#numbers.formatInteger(product.pointPrice,0,'COMMA')  }" ></span>&nbsp;<font style="color: green">point</font>
+<!-- 						<span style="color: red; font-size:large ;" th:if="${product.pointPrice > member.totalPoint}">포인트 부족!!</span> -->
+						<br/>
+						재고 : <span style="font-size:medium; font-weight: bold;" th:text="${#numbers.formatInteger(product.stock,0,'COMMA')}"></span>&nbsp;
+						<br/>
+						평점 : 
+						<span style="color: yellow; border-radius:30%; background-color:black; font-weight: bolder;font-size:x-large; " th:text="${product.grade}"></span>&nbsp;
+						<span th:text="${'('+product.productGradeList.size()+')'}"></span>
+						<br/>
+						
+						<form action="grade" class="grading" style="margin:0 0 0 0">
+							<input type="hidden" name="productID" th:value="${product.productID}">
+							<select name="grades" th:if="${!productListGradedByMember.contains(product)}">
+								<option value=0 th:if="${!orderedProductList.contains(product)}">구매해주세요!</option>
+								<option value=0 th:if="${orderedProductList.contains(product)}">평가해주세요!</option>
+								<option th:if="${orderedProductList.contains(product)}">1</option>
+								<option th:if="${orderedProductList.contains(product)}">2</option>
+								<option th:if="${orderedProductList.contains(product)}">3</option>
+								<option th:if="${orderedProductList.contains(product)}">4</option>
+								<option th:if="${orderedProductList.contains(product)}">5</option>
+							</select>
+							
+							<button th:if="${!productListGradedByMember.contains(product) && orderedProductList.contains(product)}">평가하기!</button>
+							<p style="color:lime; margin: 0 0 0 0" th:if="${productListGradedByMember.contains(product)}">평가 완료!</p>
+							
+						</form>
+						<form action="grade" th:if="${productListGradedByMember.contains(product)}" style="margin: 0 0 0 0">
+							<input type="hidden" name="productID" th:value="${product.productID}">
+							
+							<select name="grades" th:if="${productListGradedByMember.contains(product)}">
+								<option value=0 th:if="${orderedProductList.contains(product) && productListGradedByMember.contains(product)}">평가 수정하기</option>
+								<option th:if="${orderedProductList.contains(product)&& productListGradedByMember.contains(product)}">1</option>
+								<option th:if="${orderedProductList.contains(product)&& productListGradedByMember.contains(product)}">2</option>
+								<option th:if="${orderedProductList.contains(product)&& productListGradedByMember.contains(product)}">3</option>
+								<option th:if="${orderedProductList.contains(product)&& productListGradedByMember.contains(product)}">4</option>
+								<option th:if="${orderedProductList.contains(product)&& productListGradedByMember.contains(product)}">5</option>
+							</select>
+							<button th:if="${productListGradedByMember.contains(product)}">평가수정하기!</button>
+						</form>
+                        
+                        <ul class="actions">
+							<li>
+								<a style="color: fuchsia;" th:if="${product.pointPrice > member.totalPoint}" class="button">당장 포인트가 부족해요ㅜㅜ</a>
+								<a th:if="${product.pointPrice <= member.totalPoint && !orderedProductList.contains(product)}" class="button" th:href="@{|productPurchase?productID=${product.productID+'&memberID='+member.memberID}|}">당장 포인트로 구매하기!!</a>
+								<a th:if="${product.pointPrice <= member.totalPoint && orderedProductList.contains(product)}" class="button" th:href="@{|productPurchase?productID=${product.productID+'&memberID='+member.memberID}|}">또 포인트로 구매하기!!</a>
+							</li>
+                        </ul>
+                        <ul class="actions">
+                        <li><a sec:authorize="hasAnyRole('ROLE_ADMIN')" th:href="@{| productUpdateProc?productID=${product.productID} |}" class="button">상품수정</a></li>
+                        	<li sec:authorize="hasAnyRole('ROLE_ADMIN')"><a th:href="@{|productDelete?productID=${product.productID}|}" class="button">상품 내리기</a></li>
+                        </ul>
+                         </article>
+                     </tr>
+                </table>
+
+				</div>
+				</section>
+
+
+
+<!-- 리스트 리스트 리스트 리스트 리스트 리스트 리스트 리스트 리스트 리스트 리스트 리스트 리스트 리스트 -->
+			</div>
+		</div>
+
+
+
+
+		<!-- Sidebar -->
+    <div id="sidebar">
+        <div class="inner">
+            <section id="sideLogo" class="alt">
+                <a href="/">
+                    <img src="/images/logo.png">
+                </a>
+            </section>
+            <!-- Menu -->
+            <nav id="menu">
+                <header class="major">
+                    <h2>Menu</h2>
+                </header>
+                <ul>
+                    <li><a href="/">홈페이지</a></li>
+                    <li><a href="/road/informationRoad">갈맷길 정보</a></li>
+                    <li>
+                        <span class="opener">갈맷길 코스안내</span>
+                        <ul>
+                            <li><a href="/road/getRoadList?courseID=01C&index=0">코스1</a></li>
+                            <li><a href="/road/getRoadList?courseID=02C&index=0">코스2</a></li>
+                            <li><a href="/road/getRoadList?courseID=03C&index=0">코스3</a></li>
+                            <li><a href="/road/getRoadList?courseID=04C&index=0">코스4</a></li>
+                            <li><a href="/road/getRoadList?courseID=05C&index=0">코스5</a></li>
+                            <li><a href="/road/getRoadList?courseID=06C&index=0">코스6</a></li>
+                            <li><a href="/road/getRoadList?courseID=07C&index=0">코스7</a></li>
+                            <li><a href="/road/getRoadList?courseID=08C&index=0">코스8</a></li>
+                            <li><a href="/road/getRoadList?courseID=09C&index=0">코스9</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span class="opener">게시판</span>
+                        <ul>
+                            <li><a href="/board/getReportBoardList">신고게시판</a></li>
+                            <li><a href="/board/getFreeBoardList">자유게시판</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/QR/QRGuide">QR체크</a></li>
+                    <li><a href="/shop/productsList">포인트 쇼핑몰</a></li>
+                    <li sec:authorize="hasAnyRole('ROLE_ADMIN')">
+                        <span class="opener">관리자 모드</span>
+                        <ul>
+                            <li>
+                                <span> 정보 가져오기 </span>
+                                <ul>
+                                    <li><a href="/json/insertCourse">코스 가져오기</a></li>
+                                    <li><a href="/json/roadJson">구간 가져오기</a></li>
+                                    <li><a href="/json/touristJson">여행지 정보 가져오기</a></li>
+                                    <li><a href="/json/toiletJson">화장실 정보 가져오기</a></li>
+                                    <li><a href="/json/restaurantJson">식당 정보 가져오기</a></li>
+                                    <li><a href="/json/hotelJson">숙박업소 정보 가져오기</a></li>
+                                    <li><a href="/json/photoZoneJson">포토존 정보 가져오기</a></li>
+                                    <li><a href="/json/allJSON">모든 정보 가져오기</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <span> 엑셀 다운로드 </span>
+                                <ul>
+                                    <li><a th:href="@{/excel/roadDownload}">구간 정보 엑셀 다운로드</a></li>
+                                    <li><a th:href="@{/excel/toiletDownload}">화장실 정보 엑셀 다운로드</a></li>
+                                    <li><a th:href="@{/excel/ptozoneDownload}">포토존 정보 엑셀 다운로드</a></li>
+                                    <li><a th:href="@{/excel/TouristDownload}">여행지 정보 엑셀 다운로드</a></li>
+                                    <li><a th:href="@{/excel/HotelDownload}">호텔 정보 엑셀 다운로드</a></li>
+                                    <li><a th:href="@{/excel/restaurantDownload}">레스토랑 정보 엑셀 다운로드</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <span> 정보 추가,수정,삭제 </span>
+                                <ul>
+                                    <li><a th:href="@{/excel/insert}">구간 정보 엑셀</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <!-- Section -->
+            <section>
+                <header class="major">
+                    <h2>Team. SixSense</h2>
+                </header>
+                <p>클라우드 No.1 메가존클라우드와 함께하는</p>
+                <p>클라우드 네이티브 애플리케이션 개발자 양성과정</p>
+                <ul class="contact">
+                    <li class="icon solid fa-handshake">광안대교 2반 3조</li>
+                    <li class="icon solid fa-users">
+                        <p>김석림 김지훈 손용균</p>
+                        <p>윤기영 전민재 정수승</p>
+                    </li>
+                    <li class="icon solid fa-home">
+                        <p>부산광역시 해운대구 센텀동로 41</p>
+                        <p>센텀벤처타운 5층 광안대교 2반</p>
+                    </li>
+                </ul>
+            </section>
+            <!-- Footer -->
+            <footer id="footer">
+                <p class="copyright">&copy; SixSense. All rights reserved. Demo Images: <a
+                        href="https://busan.go.kr">부산광역시, </a><a href="https://galmaetgil.org">걷고싶은부산.</a> Design: <a href="https://html5up.net">HTML5
+                    UP</a>.</p>
+            </footer>
+
+			</div>
+		</div>
+ 
+		</div>
+
+	<!-- Scripts -->
+	<script src="/assets/js/jquery.min.js"></script>
+	<script src="/assets/js/browser.min.js"></script>
+	<script src="/assets/js/breakpoints.min.js"></script>
+	<script src="/assets/js/util.js"></script>
+	<script src="/assets/js/main.js"></script>
+	
+<script>
+	console.log(document.getElementsByName('listPointPrice'));
+	const priceList = document.getElementsByName('listPointPrice');
+		var num = 0; 
+	console.log(priceList);
+	console.log($('.listPointPrice'));
+	
+
+	
+	const formatPrice = (target) => {
+		  // 숫자만 남긴 후 포맷
+		 target.value = Number(target.value
+		   .replace(/[^0-9]/g, ''))
+		   .toLocaleString();
+		}
+
+</script>
+	
+	<style>
+	.posts select {
+	width: 200px;
+	}
+	</style>
+
+</body>
+
+</html>

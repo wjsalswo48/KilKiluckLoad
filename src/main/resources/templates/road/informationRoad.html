@@ -1,0 +1,180 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <title>갈맷길 정보</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <link rel="stylesheet" href="/assets/css/main.css"/>
+    <link rel="stylesheet" href="/assets/css/freeBoard.css"/>
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+</head>
+<body class="is-preload">
+<!-- Wrapper -->
+<div id="wrapper">
+    <!-- Main -->
+    <div id="main">
+        <div class="inner">
+            <!-- Header -->
+            <header id="header">
+                <a href="/" class="logo"><h1>끼룩로드</h1></a>
+                <ul class="icons">
+                    <li sec:authorize="!isAuthenticated()"><a th:href="@{/system/login}">로그인/회원가입</a></li>
+                    <li sec:authorize="isAuthenticated()" sec:authentication="principal.member.nickName"></li>
+                    <li sec:authorize="isAuthenticated()"><a th:href="@{/system/mypage}">마이페이지</a></li>
+                    <li sec:authorize="isAuthenticated()"><a th:href="@{/system/logout}">로그아웃</a></li>
+                </ul>
+            </header>
+            <div class="info">
+                <div class="title">
+                    <h2>갈맷길 소개</h2>
+                    <div class="titleLine"></div>
+                </div>
+                <img class="thumb1" src="/images/thumb_v01.jpg">
+                <div class="content">
+                    <h3>부산 갈맷길이란?</h3>
+                    <p>부산광역시에서 2009년 정부 예산을 지원받아 그린웨이 의미를 도입한 부산의 탐방로 조성 계획에 의해 2009년부터 조성되었으며,
+                        명칭은 부산의 상징인 "갈매기"와 "길"의 합성어로서, 부산의 바다, 강, 산, 온천의 지역적 특성을 담고 있다.</p>
+                    <p>2022년 현재 총연장 278.8km에 이르는 갈맷길은 매년 부산 시민을 비롯한 많은 수의 관광객이 찾고 있으며,
+                        대도시의 화려함과 아름다운 경관, 역사와 정취가 묻어나는 부산의 아름다운 걷기여행길이다.</p>
+                </div>
+                <div class="content2">
+                    <h3>갈맷길 조성 개요</h3>
+                    <p>부산 갈맷길은 사포지향(바다,강,산,온천)인 부산의 지역적 특성을 담고있어
+                        바닷가를 걷다보면 어느덧 산속이고, 산을 벗어나면 강이 있고, 몸이 노곤하면 온천이 반겨주는 부산에만 있는 길입니다.
+                        부산 갈맷길은 고조선에서 현대 역사까지, 고대 예술에서 현대 예술까지, 놀이에서 현대 축제까지를 만날 수 있는 역사와 문화 그리고 축제의 길입니다.</p>
+                    <p>부산시는 2009년부터 집중적으로 걷기 좋은 탐방로 일명 그린웨이를 조성하였으며, 대부분은 기존 산책로 및 등산로를 활용했으나, 일부 데크을 깔거나 새로이 조성한 길도 있었다.
+                        부산 지형에 맞게 해안길, 숲길, 강변길, 도심길로구분(총 9코스). 사포지향(산, 바다, 강, 온천) 부산의 매력을 만끽할 수 있다.
+                        2009년에서 2012년까지 갈맷길 20개 노선 263.8km가 정해졌고, 2017년 노선과 구간을 정비하여 21개구간 278.8km로 확대하여 운영하고 있다.</p>
+                </div>
+                <div class="thumb2P">
+                    <img class="thumb2" src="/images/thumb_v02.png">
+                </div>
+                <div class="thumb3">
+                    <img src="/images/getImage.jpg">
+                </div>
+                <div class="thumb4">
+                    <img class="thumb4p" src="/images/thumb_v03.jpg">
+                </div>
+                    <div class="content3">
+                        <h3>갈맷길 현황</h3>
+                        <p>갈맷길은 2009년 ‘걷고싶은도시 부산’을 선포하고 그린웨이라는 이름으로 조성되기 시작하였고 현재 9개 코스, 21개 구간 278.8km의 길이 만들어져 있다.</p>
+                        <p>코로나 팬데믹이후 갈맷길에 대한 관심이 높아져 걷기여행자가 지속적으로 증가하는 추세로, 2021년 한 해는 갈맷길700리 모든 코스를 1회이상 걸은 완보자가 1천명을 넘어서는 등 갈맷길 이용자는 지속적으로 증가하고 있다.</p>
+                        <p>갈맷길은 2021년 한국관광공사가 실시한 실태조사에서 제주 올레길과함께 가장 인지도 높은 도보여행길로 평가(2위) 받는 등 인지도와 인기가 지속적으로 높아지고 있다.</p>
+                </div>
+            </div>  <!-- info -->
+        </div> <!-- inner -->
+    </div>  <!-- main -->
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <div class="inner">
+            <section id="sideLogo" class="alt">
+                <a href="/">
+                    <img src="/images/logo.png">
+                </a>
+            </section>
+            <!-- Menu -->
+            <nav id="menu">
+                <header class="major">
+                    <h2>Menu</h2>
+                </header>
+                <ul>
+                    <li><a href="/">홈페이지</a></li>
+                    <li><a href="informationRoad">갈맷길 정보</a></li>
+                    <li>
+                        <span class="opener">갈맷길 코스안내</span>
+                        <ul>
+                            <li><a href="/road/getRoadList?courseID=01C&index=0">코스1</a></li>
+                            <li><a href="/road/getRoadList?courseID=02C&index=0">코스2</a></li>
+                            <li><a href="/road/getRoadList?courseID=03C&index=0">코스3</a></li>
+                            <li><a href="/road/getRoadList?courseID=04C&index=0">코스4</a></li>
+                            <li><a href="/road/getRoadList?courseID=05C&index=0">코스5</a></li>
+                            <li><a href="/road/getRoadList?courseID=06C&index=0">코스6</a></li>
+                            <li><a href="/road/getRoadList?courseID=07C&index=0">코스7</a></li>
+                            <li><a href="/road/getRoadList?courseID=08C&index=0">코스8</a></li>
+                            <li><a href="/road/getRoadList?courseID=09C&index=0">코스9</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span class="opener">게시판</span>
+                        <ul>
+                            <li><a href="/board/getReportBoardList">신고게시판</a></li>
+                            <li><a href="/board/getFreeBoardList">자유게시판</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/QR/QRGuide">QR체크</a></li>
+                    <li><a href="/shop/productsList">포인트 쇼핑몰</a></li>
+                    <li sec:authorize="hasAnyRole('ROLE_ADMIN')">
+                        <span class="opener">관리자 모드</span>
+                        <ul>
+                            <li>
+                                <span> 정보 가져오기 </span>
+                                <ul>
+                                    <li><a href="/json/insertCourse">코스 가져오기</a></li>
+                                    <li><a href="/json/roadJson">구간 가져오기</a></li>
+                                    <li><a href="/json/touristJson">여행지 정보 가져오기</a></li>
+                                    <li><a href="/json/toiletJson">화장실 정보 가져오기</a></li>
+                                    <li><a href="/json/restaurantJson">식당 정보 가져오기</a></li>
+                                    <li><a href="/json/hotelJson">숙박업소 정보 가져오기</a></li>
+                                    <li><a href="/json/photoZoneJson">포토존 정보 가져오기</a></li>
+                                    <li><a href="/json/allJSON">모든 정보 가져오기</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <span> 엑셀 다운로드 </span>
+                                <ul>
+                                    <li><a th:href="@{/excel/roadDownload}">구간 정보 엑셀 다운로드</a></li>
+                                    <li><a th:href="@{/excel/toiletDownload}">화장실 정보 엑셀 다운로드</a></li>
+                                    <li><a th:href="@{/excel/ptozoneDownload}">포토존 정보 엑셀 다운로드</a></li>
+                                    <li><a th:href="@{/excel/TouristDownload}">여행지 정보 엑셀 다운로드</a></li>
+                                    <li><a th:href="@{/excel/HotelDownload}">호텔 정보 엑셀 다운로드</a></li>
+                                    <li><a th:href="@{/excel/restaurantDownload}">레스토랑 정보 엑셀 다운로드</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <span> 정보 추가,수정,삭제 </span>
+                                <ul>
+                                    <li><a th:href="@{/excel/insert}">구간 정보 엑셀</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <!-- Section -->
+            <section>
+                <header class="major">
+                    <h2>Team. SixSense</h2>
+                </header>
+                <p>클라우드 No.1 메가존클라우드와 함께하는</p>
+                <p>클라우드 네이티브 애플리케이션 개발자 양성과정</p>
+                <ul class="contact">
+                    <li class="icon solid fa-handshake">광안대교 2반 3조</li>
+                    <li class="icon solid fa-users">
+                        <p>김석림 김지훈 손용균</p>
+                        <p>윤기영 전민재 정수승</p>
+                    </li>
+                    <li class="icon solid fa-home">
+                        <p>부산광역시 해운대구 센텀동로 41</p>
+                        <p>센텀벤처타운 5층 광안대교 2반</p>
+                    </li>
+                </ul>
+            </section>
+            <!-- Footer -->
+            <footer id="footer">
+                <p class="copyright">&copy; SixSense. All rights reserved. Demo Images: <a
+                        href="https://busan.go.kr">부산광역시, </a><a href="https://galmaetgil.org">걷고싶은부산.</a> Design: <a href="https://html5up.net">HTML5
+                    UP</a>.</p>
+            </footer>
+        </div>
+    </div>
+</div>
+<!-- Scripts -->
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/browser.min.js"></script>
+<script src="/assets/js/breakpoints.min.js"></script>
+<script src="/assets/js/util.js"></script>
+<script src="/assets/js/main.js"></script>
+</body>
+</html>

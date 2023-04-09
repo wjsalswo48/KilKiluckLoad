@@ -1,0 +1,39 @@
+
+a	java:S112Ğ"FDefine and throw a dedicated exception instead of using a generic one.(§­èâúÿÿÿÿ
+e
+java:S1192×"IDefine a constant instead of duplicating this literal "redirect" 4 times.(Õëİ‡ùÿÿÿÿ
+d
+java:S1192Ö"HDefine a constant instead of duplicating this literal "Referer" 4 times.(©ÿüäşÿÿÿÿ
+}
+java:S1192¯"fDefine a constant instead of duplicating this literal "redirect:/board/getFreeBoard?freeBID=" 3 times.(÷êÀæ
+k	java:S117N"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(œıÕ”üÿÿÿÿ
+[
+java:S4684?"@Replace this persistent entity with a simple POJO or DTO object.(ÿÇ«Ìùÿÿÿÿ
+>	java:S108`")Either remove or fill this block of code.(”ı¾
+U
+java:S4684o"@Replace this persistent entity with a simple POJO or DTO object.(ºÔ˜`
+U
+java:S4684o"@Replace this persistent entity with a simple POJO or DTO object.(ºÔ˜`
+U
+java:S4684o"@Replace this persistent entity with a simple POJO or DTO object.(ºÔ˜`
+\
+java:S4684§"@Replace this persistent entity with a simple POJO or DTO object.(ŸÓ¹şÿÿÿÿ
+\
+java:S4684§"@Replace this persistent entity with a simple POJO or DTO object.(ŸÓ¹şÿÿÿÿ
+\
+java:S4684³"@Replace this persistent entity with a simple POJO or DTO object.(÷ŠË•şÿÿÿÿ
+\
+java:S4684³"@Replace this persistent entity with a simple POJO or DTO object.(÷ŠË•şÿÿÿÿ
+R	java:S125¶"<This block of commented-out lines of code should be removed.(•óßÆ
+Q
+java:S1854Ò":Remove this useless assignment to local variable "member".(ÜüÉÁ
+\
+java:S4684Ï"@Replace this persistent entity with a simple POJO or DTO object.(—™®ğùÿÿÿÿ
+B
+java:S1481Ò"+Remove this unused "member" local variable.(ÜüÉÁ
+V
+java:S4684î"@Replace this persistent entity with a simple POJO or DTO object.(±œºk
+W
+java:S4684ü"@Replace this persistent entity with a simple POJO or DTO object.(¥ÈÁø
+\
+java:S4684ƒ"@Replace this persistent entity with a simple POJO or DTO object.(Û’»üûÿÿÿÿ

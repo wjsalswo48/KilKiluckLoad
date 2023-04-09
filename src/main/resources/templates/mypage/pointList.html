@@ -1,0 +1,681 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <title>mypage</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <link rel="stylesheet" href="/assets/css/main.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Myeongjo&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/mypage.css" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+</head>
+<body class="is-preload">
+<!-- Wrapper -->
+<div id="wrapper">
+    <!-- Main -->
+    <div id="main">
+        <div class="inner">
+            <!-- Header -->
+            <header id="header">
+                <a th:href="@{/system/mypage}" class="logo"><h1>마이페이지</h1></a>
+                <ul class="icons">
+                    <li sec:authentication="principal.member.nickName"></li>
+                    <span id="principalUsername" sec:authentication="principal.username" hidden></span>
+                    <li><a class="label" th:href="@{/system/logout}">로그아웃</a></li>
+                </ul>
+            </header>
+
+            <!-- Banner -->
+            <section>
+                <header class="major">
+                    <h2>회원 페이지</h2>
+                </header>
+                <div class="posts">
+                    <article>
+                        <div class="outer-div">
+                            <div class="inner-div inner-div1">
+                                <h2 th:text="${member.nickName}"></h2>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article>
+                        <div class="outer-div">
+                            <div class="inner-div inner-div2">
+                                <h2 th:text="${member.totalPoint}"></h2>
+                                <h2>point</h2>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article>
+                        <div class="outer-div">
+                            <div class="inner-div">
+                                <h2><a th:href="@{/system/passwordChange}">비밀번호 변경</a></h2><br/>
+                                <h2><a th:href="@{/system/infoChange}">회원정보 변경</a></h2><br/>
+                                <h2><a th:href="@{/system/memberDrop}">회원탈퇴</a></h2>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+            </section>
+            <!--            <section>-->
+            <header class="major">
+                <h2>포인트 적립 내역</h2>
+            </header>
+                <table class="boardTable" th:align="center" border="1" , th:cellpadding="0" th:cellspacing="0" th:width="1200">
+                    <thead>
+	                    <tr>
+	                        <th width="240"><a th:href="@{/system/mypage}">회원 정보</a></th>
+	                        <th width="240"><a th:href="@{/mypage/myboardList}">작성글</a></th>
+	                        <th width="240"><a th:href="@{/mypage/myreplyList}">작성댓글</a></th>
+	                        <th width="240"><a th:href="@{/mypage/itemList}">물건구매내역</a></th>
+	                        <th width="240"><a th:href="@{/mypage/pointList}">포인트적립내역</a></th>
+	                    </tr>
+                    </thead>
+                </table>
+            <div class="posts">
+                <div style="margin: 0 auto">
+                    <!-- 포인트 리스트-->
+                    <table class="boardTable" th:align="center" border="1" th:cellpadding="0"
+                           th:cellspacing="0" th:width="1000">
+                        <tr>
+                            <th width="100">번호</th>
+                            <th width="400">적립 사유</th>
+                            <th width="200">적립 금액</th>
+                            <th width="300">적립 시간</th>
+                        </tr>
+                        <tr th:each="pointHistory, state : ${pointHistoryList}">
+                            <td th:text="${totalNum - state.count - currentPage*10 + 1}" th:align="center"></td>
+                            <td th:text="${pointHistory.reason}" th:align="center"></td>
+                            <td class="point" th:text="${pointHistory.variancePoint}" th:align="center"></td>
+                            <td th:text="${#dates.format(pointHistory.varianceDate, 'yyyy-MM-dd HH:mm')}" th:align="center"></td>
+                        </tr>
+                    </table>
+
+                    <div class="pagination">
+                        <ul>
+                            <li th:each="page : ${#numbers.sequence(0, searchResult.getPage() - 1)}">
+                                <a th:href="@{/mypage/pointList(page=${pageStat.index},
+            				searchKeyword=${searchResult.getSearchKeyword()},
+            				searchCategory=${searchResult.getSearchCategory()})}"
+                                   th:text="${pageStat.index + 1}"></a></li>
+                        </ul>
+                    </div>
+
+                    <form th:action="@{/mypage/pointList}" method="post">
+                        <table th:align="center" border="1" th:cellpadding="0"
+                               th:cellspacing="0" th:width="700">
+                            <tr>
+                                <td align="right">
+                                    <select name="searchCondition">
+                                        <option value="TITLE">적립사유</option>
+                                    </select>
+                                    <input name="searchKeyword" type="text"/>
+                                    <input type="submit" value="검색"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+
+
+                </div>
+            </div>
+            <!--        </section>-->
+
+
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <!-- Sidebar -->
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <div class="inner">
+            <section id="sideLogo" class="alt">
+                <a href="/">
+                    <img src="/images/logo.png">
+                </a>
+            </section>
+            <!-- Menu -->
+            <nav id="menu">
+                <header class="major">
+                    <h2>Menu</h2>
+                </header>
+                <ul>
+                    <li><a href="/">홈페이지</a></li>
+                    <li><a href="/road/informationRoad">갈맷길 정보</a></li>
+                    <li>
+                        <span class="opener">갈맷길 코스안내</span>
+                        <ul>
+                            <li><a href="/road/getRoadList?courseID=01C&index=0">코스1</a></li>
+                            <li><a href="/road/getRoadList?courseID=02C&index=0">코스2</a></li>
+                            <li><a href="/road/getRoadList?courseID=03C&index=0">코스3</a></li>
+                            <li><a href="/road/getRoadList?courseID=04C&index=0">코스4</a></li>
+                            <li><a href="/road/getRoadList?courseID=05C&index=0">코스5</a></li>
+                            <li><a href="/road/getRoadList?courseID=06C&index=0">코스6</a></li>
+                            <li><a href="/road/getRoadList?courseID=07C&index=0">코스7</a></li>
+                            <li><a href="/road/getRoadList?courseID=08C&index=0">코스8</a></li>
+                            <li><a href="/road/getRoadList?courseID=09C&index=0">코스9</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span class="opener">게시판</span>
+                        <ul>
+                            <li><a href="/board/getReportBoardList">신고게시판</a></li>
+                            <li><a href="/board/getFreeBoardList">자유게시판</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/QR/QRGuide">QR체크</a></li>
+                    <li><a href="/shop/productsList">포인트 쇼핑몰</a></li>
+                    <li sec:authorize="hasAnyRole('ROLE_ADMIN')">
+                        <span class="opener">관리자 모드</span>
+                        <ul>
+                            <li>
+                                <span> 정보 가져오기 </span>
+                                <ul>
+                                    <li><a href="/json/insertCourse">코스 가져오기</a></li>
+                                    <li><a href="/json/roadJson">구간 가져오기</a></li>
+                                    <li><a href="/json/touristJson">여행지 정보 가져오기</a></li>
+                                    <li><a href="/json/toiletJson">화장실 정보 가져오기</a></li>
+                                    <li><a href="/json/restaurantJson">식당 정보 가져오기</a></li>
+                                    <li><a href="/json/hotelJson">숙박업소 정보 가져오기</a></li>
+                                    <li><a href="/json/photoZoneJson">포토존 정보 가져오기</a></li>
+                                    <li><a href="/json/allJSON">모든 정보 가져오기</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <span> 엑셀 다운로드 </span>
+                                <ul>
+                                    <li><a th:href="@{/excel/roadDownload}">구간 정보 엑셀 다운로드</a></li>
+                                    <li><a th:href="@{/excel/toiletDownload}">화장실 정보 엑셀 다운로드</a></li>
+                                    <li><a th:href="@{/excel/ptozoneDownload}">포토존 정보 엑셀 다운로드</a></li>
+                                    <li><a th:href="@{/excel/TouristDownload}">여행지 정보 엑셀 다운로드</a></li>
+                                    <li><a th:href="@{/excel/HotelDownload}">호텔 정보 엑셀 다운로드</a></li>
+                                    <li><a th:href="@{/excel/restaurantDownload}">레스토랑 정보 엑셀 다운로드</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <span> 정보 추가,수정,삭제 </span>
+                                <ul>
+                                    <li><a th:href="@{/excel/insert}">구간 정보 엑셀</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <!-- Section -->
+            <section>
+                <header class="major">
+                    <h2>Team. Sixsense</h2>
+                </header>
+                <p>클라우드 No.1 메가존클라우드와 함께하는</p>
+                <p>클라우드 네이티브 애플리케이션 개발자 양성과정</p>
+                <ul class="contact">
+                    <li class="icon solid fa-handshake">광안대교 2반 3조</li>
+                    <li class="icon solid fa-users">
+                        <p>김석림 김지훈 손용균</p>
+                        <p>윤기영 전민재 정수승</p>
+                    </li>
+                    <li class="icon solid fa-home">
+                        <p>부산광역시 해운대구 센텀동로 41</p>
+                        <p>센텀벤처타운 5층 광안대교 2반</p>
+                    </li>
+                </ul>
+            </section>
+            <!-- Footer -->
+            <footer id="footer">
+                <p class="copyright">&copy; Sixsense. All rights reserved. Demo Images: <a
+                        href="https://busan.go.kr">부산광역시, </a><a href="https://galmaetgil.org">걷고싶은부산.</a> Design: <a href="https://html5up.net">HTML5
+                    UP</a>.</p>
+            </footer>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/browser.min.js"></script>
+<script src="/assets/js/breakpoints.min.js"></script>
+<script src="/assets/js/util.js"></script>
+<script src="/assets/js/main.js"></script>
+<script src="https://kit.fontawesome.com/389144722e.js" crossorigin="anonymous"></script>
+
+</body>
+<style>
+
+    /*a {*/
+    /*    color: #73685d;*/
+    /*}*/
+
+    /*:root {*/
+    /*    --primary-color: #f56a6a;*/
+    /*    --secondary-color: #f56a6a;*/
+    /*    --black: #000000;*/
+    /*    --white: #ffffff;*/
+    /*    --gray: #efefef;*/
+    /*    --gray-2: #757575;*/
+
+    /*    --facebook-color: #4267B2;*/
+    /*    --google-color: #DB4437;*/
+    /*    --twitter-color: #1DA1F2;*/
+    /*    --insta-color: #E1306C;*/
+    /*}*/
+
+    /*@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');*/
+
+    /** {*/
+    /*    font-family: 'Poppins', sans-serif;*/
+    /*    margin: 0;*/
+    /*    padding: 0;*/
+    /*    box-sizing: border-box;*/
+    /*}*/
+
+    /*.outer-div {*/
+
+    /*    !*width: 100%;*!*/
+    /*    !*height: 100%;*!*/
+    /*    !*position: relative;*!*/
+
+    /*}*/
+
+    /*.fa fa-lock {*/
+    /*    width: 200px;*/
+    /*    height: 200px;*/
+    /*}*/
+
+    /*.inner-div {*/
+
+    /*    !*width: 100px;*!*/
+    /*    !*height: 300px;*!*/
+    /*    !*position: absolute;*!*/
+    /*    !*top: 70%;*!*/
+    /*    !*left: 50%;*!*/
+    /*    !*margin-left: -150px;*!*/
+    /*    !*margin-top: -150px;*!*/
+    /*    text-align: center;*/
+    /*    margin: 0 auto;*/
+
+    /*}*/
+
+    /*.inner-div1 {*/
+    /*    margin-top: 30%;*/
+    /*}*/
+
+    /*.inner-div2 {*/
+    /*    margin-top: 20%;*/
+    /*}*/
+
+    /*body {*/
+    /*    !*padding: 1.5em;*!*/
+    /*    background: #f5f5f5*/
+    /*}*/
+
+    /*html,*/
+    /*body {*/
+    /*    !*height: 100vh;*!*/
+    /*    !*overflow: hidden;*!*/
+    /*    !*padding: 1.5em;*!*/
+    /*    background: #ffffff*/
+    /*}*/
+
+    /*.container {*/
+    /*    position: relative;*/
+    /*    min-height: 100vh;*/
+    /*    overflow: hidden;*/
+    /*}*/
+
+    /*.row {*/
+    /*    display: flex;*/
+    /*    flex-wrap: wrap;*/
+    /*    height: 100vh;*/
+    /*}*/
+
+    /*.col {*/
+    /*    width: 50%;*/
+    /*}*/
+
+    /*.align-items-center {*/
+    /*    display: flex;*/
+    /*    align-items: center;*/
+    /*    justify-content: center;*/
+    /*    text-align: center;*/
+    /*}*/
+
+    /*.form-wrapper {*/
+    /*    width: 100%;*/
+    /*    max-width: 28rem;*/
+    /*}*/
+
+    /*.form {*/
+    /*    padding: 1rem;*/
+    /*    background-color: var(--white);*/
+    /*    border-radius: 1.5rem;*/
+    /*    width: 100%;*/
+    /*    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;*/
+    /*    transform: scale(0);*/
+    /*    transition: .5s ease-in-out;*/
+    /*    transition-delay: 1s;*/
+    /*}*/
+
+    /*.input-group {*/
+    /*    position: relative;*/
+    /*    width: 100%;*/
+    /*    margin: 1rem 0;*/
+    /*}*/
+
+    /*.input-group i {*/
+    /*    position: absolute;*/
+    /*    top: 50%;*/
+    /*    left: 1rem;*/
+    /*    transform: translateY(-50%);*/
+    /*    font-size: 1.4rem;*/
+    /*    color: var(--gray-2);*/
+    /*}*/
+
+    /*.input-group input {*/
+    /*    width: 100%;*/
+    /*    padding: 1rem 3rem;*/
+    /*    font-size: 1rem;*/
+    /*    background-color: var(--gray);*/
+    /*    border-radius: .5rem;*/
+    /*    border: 0.125rem solid var(--white);*/
+    /*    outline: none;*/
+    /*}*/
+
+    /*.input-group input:focus {*/
+    /*    border: 0.125rem solid var(--primary-color);*/
+    /*}*/
+
+    /*.form button {*/
+    /*    cursor: pointer;*/
+    /*    width: 100%;*/
+    /*    padding: .6rem 0;*/
+    /*    border-radius: .5rem;*/
+    /*    border: none;*/
+    /*    background-color: var(--primary-color);*/
+    /*    color: var(--white);*/
+    /*    font-size: 1.2rem;*/
+    /*    outline: none;*/
+    /*}*/
+
+    /*.form p {*/
+    /*    margin: 1rem 0;*/
+    /*    font-size: .7rem;*/
+    /*}*/
+
+    /*.flex-col {*/
+    /*    flex-direction: column;*/
+    /*}*/
+
+    /*.social-list {*/
+    /*    margin: 2rem 0;*/
+    /*    padding: 1rem;*/
+    /*    border-radius: 1.5rem;*/
+    /*    width: 100%;*/
+    /*    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;*/
+    /*    transform: scale(0);*/
+    /*    transition: .5s ease-in-out;*/
+    /*    transition-delay: 1.2s;*/
+    /*}*/
+
+    /*.social-list > div {*/
+    /*    color: var(--white);*/
+    /*    margin: 0 .5rem;*/
+    /*    padding: .7rem;*/
+    /*    cursor: pointer;*/
+    /*    border-radius: .5rem;*/
+    /*    cursor: pointer;*/
+    /*    transform: scale(0);*/
+    /*    transition: .5s ease-in-out;*/
+    /*}*/
+
+    /*.social-list > div:nth-child(1) {*/
+    /*    transition-delay: 1.4s;*/
+    /*}*/
+
+    /*.social-list > div:nth-child(2) {*/
+    /*    transition-delay: 1.6s;*/
+    /*}*/
+
+    /*.social-list > div:nth-child(3) {*/
+    /*    transition-delay: 1.8s;*/
+    /*}*/
+
+    /*.social-list > div:nth-child(4) {*/
+    /*    transition-delay: 2s;*/
+    /*}*/
+
+    /*.social-list > div > i {*/
+    /*    font-size: 1.5rem;*/
+    /*    transition: .4s ease-in-out;*/
+    /*}*/
+
+    /*.social-list > div:hover i {*/
+    /*    transform: scale(1.5);*/
+    /*}*/
+
+    /*.facebook-bg {*/
+    /*    background-color: var(--facebook-color);*/
+    /*}*/
+
+    /*.google-bg {*/
+    /*    background-color: var(--google-color);*/
+    /*}*/
+
+    /*.twitter-bg {*/
+    /*    background-color: var(--twitter-color);*/
+    /*}*/
+
+    /*.insta-bg {*/
+    /*    background-color: var(--insta-color);*/
+    /*}*/
+
+    /*.pointer {*/
+    /*    cursor: pointer;*/
+    /*}*/
+
+    /*.container.sign-in .form.sign-in,*/
+    /*.container.sign-in .social-list.sign-in,*/
+    /*.container.sign-in .social-list.sign-in > div,*/
+    /*.container.sign-up .form.sign-up,*/
+    /*.container.sign-up .social-list.sign-up,*/
+    /*.container.sign-up .social-list.sign-up > div {*/
+    /*    transform: scale(1);*/
+    /*}*/
+
+    /*.content-row {*/
+    /*    position: absolute;*/
+    /*    top: 0;*/
+    /*    left: 0;*/
+    /*    pointer-events: none;*/
+    /*    z-index: 6;*/
+    /*    width: 100%;*/
+    /*}*/
+
+    /*.text {*/
+    /*    margin: 4rem;*/
+    /*    color: var(--white);*/
+    /*}*/
+
+    /*.text h2 {*/
+    /*    font-size: 3.5rem;*/
+    /*    font-weight: 800;*/
+    /*    margin: 2rem 0;*/
+    /*    transition: 1s ease-in-out;*/
+    /*}*/
+
+    /*.text p {*/
+    /*    font-weight: 600;*/
+    /*    transition: 1s ease-in-out;*/
+    /*    transition-delay: .2s;*/
+    /*}*/
+
+    /*.img img {*/
+    /*    width: 30vw;*/
+    /*    transition: 1s ease-in-out;*/
+    /*    transition-delay: .4s;*/
+    /*}*/
+
+    /*.text.sign-in h2,*/
+    /*.text.sign-in p,*/
+    /*.img.sign-in img {*/
+    /*    transform: translateX(-250%);*/
+    /*}*/
+
+    /*.text.sign-up h2,*/
+    /*.text.sign-up p,*/
+    /*.img.sign-up img {*/
+    /*    transform: translateX(250%);*/
+    /*}*/
+
+    /*.container.sign-in .text.sign-in h2,*/
+    /*.container.sign-in .text.sign-in p,*/
+    /*.container.sign-in .img.sign-in img,*/
+    /*.container.sign-up .text.sign-up h2,*/
+    /*.container.sign-up .text.sign-up p,*/
+    /*.container.sign-up .img.sign-up img {*/
+    /*    transform: translateX(0);*/
+    /*}*/
+
+    /*!* BACKGROUND *!*/
+
+    /*.container::before {*/
+    /*    content: "";*/
+    /*    position: absolute;*/
+    /*    top: 0;*/
+    /*    right: 0;*/
+    /*    height: 100vh;*/
+    /*    width: 300vw;*/
+    /*    transform: translate(35%, 0);*/
+    /*    background-image: linear-gradient(-45deg, var(--primary-color) 0%, var(--secondary-color) 100%);*/
+    /*    transition: 1s ease-in-out;*/
+    /*    z-index: 6;*/
+    /*    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;*/
+    /*    border-bottom-right-radius: max(50vw, 50vh);*/
+    /*    border-top-left-radius: max(50vw, 50vh);*/
+    /*}*/
+
+    /*.container.sign-in::before {*/
+    /*    transform: translate(0, 0);*/
+    /*    right: 50%;*/
+    /*}*/
+
+    /*.container.sign-up::before {*/
+    /*    transform: translate(100%, 0);*/
+    /*    right: 50%;*/
+    /*}*/
+
+    /*!* RESPONSIVE *!*/
+
+    /*@media only screen and (max-width: 425px) {*/
+
+    /*    .container::before,*/
+    /*    .container.sign-in::before,*/
+    /*    .container.sign-up::before {*/
+    /*        height: 100vh;*/
+    /*        border-bottom-right-radius: 0;*/
+    /*        border-top-left-radius: 0;*/
+    /*        z-index: 0;*/
+    /*        transform: none;*/
+    /*        right: 0;*/
+    /*    }*/
+
+    /*    !* .container.sign-in .col.sign-up {*/
+    /*        transform: translateY(100%);*/
+    /*    } *!*/
+    /*    .container.sign-in .col.sign-in,*/
+    /*    .container.sign-up .col.sign-up {*/
+    /*        transform: translateY(0);*/
+    /*    }*/
+
+    /*    .content-row {*/
+    /*        align-items: flex-start !important;*/
+    /*    }*/
+
+    /*    .content-row .col {*/
+    /*        transform: translateY(0);*/
+    /*        background-color: unset;*/
+    /*    }*/
+
+    /*    .col {*/
+    /*        width: 100%;*/
+    /*        position: absolute;*/
+    /*        padding: 2rem;*/
+    /*        background-color: var(--white);*/
+    /*        border-top-left-radius: 2rem;*/
+    /*        border-top-right-radius: 2rem;*/
+    /*        transform: translateY(100%);*/
+    /*        transition: 1s ease-in-out;*/
+    /*    }*/
+
+    /*    .row {*/
+    /*        align-items: flex-end;*/
+    /*        justify-content: flex-end;*/
+    /*    }*/
+
+    /*    .form,*/
+    /*    .social-list {*/
+    /*        box-shadow: none;*/
+    /*        margin: 0;*/
+    /*        padding: 0;*/
+    /*    }*/
+
+    /*    .text {*/
+    /*        margin: 0;*/
+    /*    }*/
+
+    /*    .text p {*/
+    /*        display: none;*/
+    /*    }*/
+
+    /*    .text h2 {*/
+    /*        margin: .5rem;*/
+    /*        font-size: 2rem;*/
+    /*    }*/
+
+    /*    .button change {*/
+    /*        font-size: 100px !important;*/
+    /*    }*/
+
+    /*}*/
+</style>
+
+<script>
+
+    $(function() {
+        $(".point").each(function(idx, ele) {
+
+            if($(ele).text() > 0 ){
+                // $(ele).text().css({"color" : "blue"})
+                console.log("+");
+                $(this).css({"color" : "blue"});
+            } else {
+                // $(ele).text().css({"color" : "red"})
+                $(this).css({"color" : "red"});
+                console.log("-")
+            }
+
+            console.log($(ele).text());
+        })
+    });
+
+    /*
+    $(function() {
+        if($point > 0){
+            $("#point").css({"color" : "blue"})
+        } else if ($point < 0) {
+            $("#point").css({"color" : "red"})
+        }
+        console.log("=========>" , $point);
+        console.log("test")
+    });
+    */
+
+</script>
+
+</html>

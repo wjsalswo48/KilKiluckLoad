@@ -1,0 +1,26 @@
+
+a
+java:S1192;"KDefine a constant instead of duplicating this literal "courseList" 4 times.(´õ÷
+k
+java:S3655J"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(Ç¸Óéøÿÿÿÿ
+k
+java:S36552"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(Ô›©Àûÿÿÿÿ
+k
+java:S3655*"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(Ñ¨î‡şÿÿÿÿ
+k
+java:S3655R"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(øéö±üÿÿÿÿ
+S	java:S106&"9Replace this use of System.out or System.err by a logger.(ÉÓåşûÿÿÿÿ
+N	java:S106,"9Replace this use of System.out or System.err by a logger.(«‹Îõ
+[
+java:S1854D"@Remove this useless assignment to local variable "roadsortList".(ÚóÄÃşÿÿÿÿ
+[
+java:S4684@"@Replace this persistent entity with a simple POJO or DTO object.(Ç­´ÿÿÿÿÿ
+L
+java:S1481D"1Remove this unused "roadsortList" local variable.(ÚóÄÃşÿÿÿÿ
+A
+java:S1481H"&Remove this unused "i" local variable.(ùó›Ìøÿÿÿÿ
+S	java:S106L"9Replace this use of System.out or System.err by a logger.(ªÓ¼áşÿÿÿÿ
+[
+java:S4684^"@Replace this persistent entity with a simple POJO or DTO object.(ÔÏ«±ùÿÿÿÿ
+[
+java:S4684h"@Replace this persistent entity with a simple POJO or DTO object.(†îÂøüÿÿÿÿ

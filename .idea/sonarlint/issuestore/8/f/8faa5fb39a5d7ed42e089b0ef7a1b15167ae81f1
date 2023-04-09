@@ -1,0 +1,16 @@
+
+\
+java:S1192"FDefine a constant instead of duplicating this literal "UTF-8" 7 times.(ô¢§‚
+x
+java:S14881"bImmediately return this expression instead of assigning it to the temporary variable "realresult".(¨óÀ§
+S	java:S106 "9Replace this use of System.out or System.err by a logger.(³°Íøÿÿÿÿ
+M
+java:S1874."2Remove this use of "JsonParser"; it is deprecated.(ªµ’ÿùÿÿÿÿ
+H
+java:S1874/"-Remove this use of "parse"; it is deprecated.(ô„õ±ùÿÿÿÿ
+P
+java:S1128":Remove this unused import 'mz.sixsense.road.entity.Hotel'.(ıãŞÕ
+F
+java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ
+F
+java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ

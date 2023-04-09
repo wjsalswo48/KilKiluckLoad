@@ -1,0 +1,33 @@
+
+`	java:S112="FDefine and throw a dedicated exception instead of using a generic one.(şÃ§ıÿÿÿÿ
+\	java:S112¢"FDefine and throw a dedicated exception instead of using a generic one.(ÎÕ¾Ç
+k	java:S117d"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(œıÕ”üÿÿÿÿ
+V
+java:S4684;"@Replace this persistent entity with a simple POJO or DTO object.(°ƒ×
+[
+java:S4684="@Replace this persistent entity with a simple POJO or DTO object.(şÃ§ıÿÿÿÿ
+V
+java:S4684R"@Replace this persistent entity with a simple POJO or DTO object.(ÜÃ­Ã
+>	java:S108w")Either remove or fill this block of code.(”ı¾
+\
+java:S4684„"@Replace this persistent entity with a simple POJO or DTO object.(ªùˆ•üÿÿÿÿ
+\
+java:S4684„"@Replace this persistent entity with a simple POJO or DTO object.(ªùˆ•üÿÿÿÿ
+T	java:S106†"9Replace this use of System.out or System.err by a logger.(üÍçìüÿÿÿÿ
+T	java:S106"9Replace this use of System.out or System.err by a logger.(üÍçìüÿÿÿÿ
+\
+java:S4684 "@Replace this persistent entity with a simple POJO or DTO object.(şã¾Æùÿÿÿÿ
+\
+java:S4684¡"@Replace this persistent entity with a simple POJO or DTO object.(û¾µ­ùÿÿÿÿ
+\
+java:S4684¡"@Replace this persistent entity with a simple POJO or DTO object.(û¾µ­ùÿÿÿÿ
+ƒ
+java:S1130¢"lRemove the declaration of thrown exception 'java.lang.Exception', as it cannot be thrown from method's body.(ÎÕ¾Ç
+W	java:S125˜"<This block of commented-out lines of code should be removed.(Õäè±ÿÿÿÿÿ
+W	java:S125¤"<This block of commented-out lines of code should be removed.(Š¶ôÃÿÿÿÿÿ
+\
+java:S4684´"@Replace this persistent entity with a simple POJO or DTO object.(¿‹ªÎÿÿÿÿÿ
+W
+java:S4684Ü"@Replace this persistent entity with a simple POJO or DTO object.(„Ç
+O	java:S106İ"9Replace this use of System.out or System.err by a logger.(‘½ Ğ
+O	java:S106à"9Replace this use of System.out or System.err by a logger.(‘½ Ğ

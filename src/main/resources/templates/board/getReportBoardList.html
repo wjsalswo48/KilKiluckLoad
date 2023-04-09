@@ -1,0 +1,238 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+<title>신고게시판</title>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="/assets/css/main.css" />
+
+</head>
+<body class="is-preload">
+	<!-- Wrapper -->
+	<div id="wrapper">
+		<!-- Main -->
+		<div id="main">
+			<div class="inner">
+				<!-- Header -->
+				<header id="header">
+                <a href="getReportBoardList" class="logo"><h1>신고게시판</h1></a>
+                <ul class="icons">
+                    <li sec:authorize="!isAuthenticated()"><a th:href="@{/system/login}">로그인</a></li>
+                    <li sec:authorize="!isAuthenticated()"><a th:href="@{/system/login}">회원가입</a></li>
+                    <li sec:authorize="isAuthenticated()" sec:authentication="principal.member.nickName"></li>
+                    <li sec:authorize="isAuthenticated()"><a th:href="@{/system/mypage}">마이페이지</a></li>
+                    <li sec:authorize="isAuthenticated()"><a th:href="@{/system/logout}">로그아웃</a></li>
+                </ul>
+				</header>
+
+				<table class="boardTable" th:align="center" border="1"
+					th:cellpadding="0" th:cellspacing="0" th:width="750">
+					<tr>
+						<th width="50">번호</th>
+						<th width="50">분류</th>
+						<th width="50">상태</th>
+						<th width="400">제목</th>
+						<th width="100">작성자</th>
+						<th width="100">등록일</th>
+					</tr>
+					<tr th:if="${reportBoard.boardCategory}=='공지'"
+						th:each="reportBoard, state : ${reportboardList}"
+						class="noticeboard">
+						<td th:align="center"><i class="fa fa-info-circle" aria-hidden="true"></i></td>
+						<td th:text="${reportBoard.boardCategory}"></td>
+						<td th:text="${reportBoard.reportStatus}"></td>
+						<td><img
+							th:if="${reportBoard.getReportBoardFileList().size()}>=1"
+							src="/images/haveFile.png" style="width: 20px; height: 20px;">
+							<a
+							th:href="@{/board/getReportBoard(reportID=${reportBoard.reportID})}"
+							th:text="${reportBoard.title}"></a></td>
+						<td th:text="${reportBoard.memberID.nickName}" th:align="center">
+						<td
+							th:text="${#dates.format(reportBoard.createDate, 'yyyy-MM-dd')}"
+							th:align="center">
+					</tr>
+					<tr th:if="${reportBoard.boardCategory}!='공지'"
+						th:each="reportBoard, state : ${reportboardList}">
+						<td th:text="${totalNum - state.count - currentPage*10 + 1}"
+							th:align="center"></td>
+						<td th:text="${reportBoard.boardCategory}"></td>
+						<td th:text="${reportBoard.reportStatus}"></td>
+						<td><img
+							th:if="${reportBoard.getReportBoardFileList().size()}>=1"
+							src="/images/haveFile.png" style="width: 20px; height: 20px;">
+							<a
+							th:href="@{/board/getReportBoard(reportID=${reportBoard.reportID})}"
+							th:text="${reportBoard.title}"></a></td>
+						<td th:text="${reportBoard.memberID.nickName}" th:align="center">
+						<td
+							th:text="${#dates.format(reportBoard.createDate, 'yyyy-MM-dd')}"
+							th:align="center">
+					</tr>
+				</table>
+
+				<div style="text-align: center;">
+					<a th:if="${boardPage.startPage>boardPage.pageBlock}"
+						th:href="@{/board/getReportBoardList(page=${boardPage.startPage-boardPage.pageBlock})}">Prev</a>
+					<span
+						th:each="m : ${#numbers.sequence(boardPage.startPage,boardPage.endPage)}">
+						<a
+						th:href="@{/board/getReportBoardList(page=${m}-1,
+									searchKeyword=${searchResult.getSearchKeyword()},
+									searchCategory=${searchResult.getSearchCategory()})}"
+						style="text-size: 15px; color: black;" th:text="${m}"> </a>
+					</span> <a th:if="${boardPage.endPage<boardPage.totalPage}"
+						th:href="@{/board/getReportBoardList(page=${boardPage.startPage+boardPage.pageBlock})}">Next</a>
+				</div>
+
+				<!-- 검색 -->
+				<form th:action="@{/board/getReportBoardList}" method="post">
+					<table th:align="center" border="1" th:cellpadding="0"
+						th:cellspacing="0" th:width="700">
+						<tr>
+							<td align="right"><select name="searchCondition">
+									<option value="TITLE">제목</option>
+									<option value="CONTENT">내용</option>
+							</select> <input name="searchKeyword" type="text" /> <input type="submit"
+								value="검색" /></td>
+						</tr>
+					</table>
+				</form>
+            <p align="right">
+                <a sec:authorize="hasAnyRole('ROLE_MEMBER_PHONE', 'ROLE_ADMIN')" th:href="@{/board/insertReportBoard}">글 쓰기</a>
+
+                <span sec:authorize="hasRole('ROLE_MEMBER')">글을 쓰시려면
+                    <a th:href="@{/system/phone}" onclick="return confirm('휴대폰 인증을 완료한 회원만 글을 작성할 수 있습니다.\n ' +
+                     '지금 휴대폰 인증을 완료하러 가시겠습니까?');">휴대폰 인증 </a>먼저 해주세요!
+                </span>
+
+                <span sec:authorize="!isAuthenticated()">글을 쓰시려면
+                    <a th:href="@{/system/login}" onclick="return confirm('글 작성은 로그인 후에 이용할 수 있습니다.\n 지금 로그인하러 가시겠습니까?');">로그인</a>
+                     먼저 해주세요!
+                </span>
+            </p>
+			</div>
+		</div><!-- Sidebar -->
+    <div id="sidebar">
+        <div class="inner">
+            <section id="sideLogo" class="alt">
+                <a href="/">
+                    <img src="/images/logo.png">
+                </a>
+            </section>
+            <!-- Menu -->
+            <nav id="menu">
+                <header class="major">
+                    <h2>Menu</h2>
+                </header>
+                <ul>
+                    <li><a href="/">홈페이지</a></li>
+                    <li><a href="/road/informationRoad">갈맷길 정보</a></li>
+                    <li>
+                        <span class="opener">갈맷길 코스안내</span>
+                        <ul>
+                            <li><a href="/road/getRoadList?courseID=01C&index=0">코스1</a></li>
+                            <li><a href="/road/getRoadList?courseID=02C&index=0">코스2</a></li>
+                            <li><a href="/road/getRoadList?courseID=03C&index=0">코스3</a></li>
+                            <li><a href="/road/getRoadList?courseID=04C&index=0">코스4</a></li>
+                            <li><a href="/road/getRoadList?courseID=05C&index=0">코스5</a></li>
+                            <li><a href="/road/getRoadList?courseID=06C&index=0">코스6</a></li>
+                            <li><a href="/road/getRoadList?courseID=07C&index=0">코스7</a></li>
+                            <li><a href="/road/getRoadList?courseID=08C&index=0">코스8</a></li>
+                            <li><a href="/road/getRoadList?courseID=09C&index=0">코스9</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span class="opener">게시판</span>
+                        <ul>
+                            <li><a href="getReportBoardList">신고게시판</a></li>
+                            <li><a href="getFreeBoardList">자유게시판</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/QR/QRGuide">QR체크</a></li>
+                    <li><a href="/shop/productsList">포인트 쇼핑몰</a></li>
+                    <li sec:authorize="hasAnyRole('ROLE_ADMIN')">
+                        <span class="opener">관리자 모드</span>
+                        <ul>
+                            <li>
+                                <span> 정보 가져오기 </span>
+                                <ul>
+                                    <li><a href="/json/insertCourse">코스 가져오기</a></li>
+                                    <li><a href="/json/roadJson">구간 가져오기</a></li>
+                                    <li><a href="/json/touristJson">여행지 정보 가져오기</a></li>
+                                    <li><a href="/json/toiletJson">화장실 정보 가져오기</a></li>
+                                    <li><a href="/json/restaurantJson">식당 정보 가져오기</a></li>
+                                    <li><a href="/json/hotelJson">숙박업소 정보 가져오기</a></li>
+                                    <li><a href="/json/photoZoneJson">포토존 정보 가져오기</a></li>
+                                    <li><a href="/json/allJSON">모든 정보 가져오기</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <span> 엑셀 다운로드 </span>
+                                <ul>
+                                    <li><a th:href="@{/excel/roadDownload}">구간 정보 엑셀 다운로드</a></li>
+                                    <li><a th:href="@{/excel/toiletDownload}">화장실 정보 엑셀 다운로드</a></li>
+                                    <li><a th:href="@{/excel/ptozoneDownload}">포토존 정보 엑셀 다운로드</a></li>
+                                    <li><a th:href="@{/excel/TouristDownload}">여행지 정보 엑셀 다운로드</a></li>
+                                    <li><a th:href="@{/excel/HotelDownload}">호텔 정보 엑셀 다운로드</a></li>
+                                    <li><a th:href="@{/excel/restaurantDownload}">레스토랑 정보 엑셀 다운로드</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <span> 정보 추가,수정,삭제 </span>
+                                <ul>
+                                    <li><a th:href="@{/excel/insert}">구간 정보 엑셀</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <!-- Section -->
+            <section>
+                <header class="major">
+                    <h2>Team. Sixsense</h2>
+                </header>
+                <p>클라우드 No.1 메가존클라우드와 함께하는</p>
+                <p>클라우드 네이티브 애플리케이션 개발자 양성과정</p>
+                <ul class="contact">
+                    <li class="icon solid fa-handshake">광안대교 2반 3조</li>
+                    <li class="icon solid fa-users">
+                        <p>김석림 김지훈 손용균</p>
+                        <p>윤기영 전민재 정수승</p>
+                    </li>
+                    <li class="icon solid fa-home">
+                        <p>부산광역시 해운대구 센텀동로 41</p>
+                        <p>센텀벤처타운 5층 광안대교 2반</p>
+                    </li>
+                </ul>
+            </section>
+            <!-- Footer -->
+            <footer id="footer">
+                <p class="copyright">&copy; Sixsense. All rights reserved. Demo Images: <a
+                        href="https://busan.go.kr">부산광역시, </a><a href="https://galmaetgil.org">걷고싶은부산.</a> Design: <a href="https://html5up.net">HTML5
+                    UP</a>.</p>
+            </footer>
+			</div>
+		</div>
+	</div>
+
+	<!-- Scripts -->
+	<script src="/assets/js/jquery.min.js"></script>
+	<script src="/assets/js/browser.min.js"></script>
+	<script src="/assets/js/breakpoints.min.js"></script>
+	<script src="/assets/js/util.js"></script>
+	<script src="/assets/js/main.js"></script>
+
+</body>
+
+<style>
+.noticeboard td {
+	background-color: lightyellow;
+}
+</style>
+
+</html>

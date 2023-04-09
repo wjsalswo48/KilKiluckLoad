@@ -1,0 +1,483 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Myeongjo&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/login.css" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<!--<p class="tip">끼룩로드</p>-->
+
+<div id="container" class="container" style="overflow:scroll;">
+    <!-- FORM SECTION -->
+    <div class="row">
+        <!-- SIGN UP -->
+        <div class="col align-items-center flex-col sign-up">
+            <div class="form-wrapper align-items-center">
+                <div class="form sign-up">
+                    <form id="signupForm">
+                        <!--                                        <form th:action="@{/signup}" method="post">-->
+                        <div class="input-group">
+                            <i class='bx bxs-user'></i>
+                            <label for="mid" id="id"></label>
+                            <input type="text" name="memberID" id="mid" placeholder="아이디를 입력해주세요 (5~15 글자)"/>
+                        </div>
+                        <div class="input-group">
+                            <i class='bx bx-mail-send'></i>
+                            <label for="mpwd" id="pwdnew"></label>
+                            <input type="password" name="password" id="mpwd" placeholder="비밀번호를 입력해주세요 (영문,숫자를 포함한 8~20자)"/>
+                        </div>
+                        <div class="input-group">
+                            <i class='bx bxs-lock-alt'></i>
+                            <label for="pwdconfrim" id="pwdText"></label>
+                            <input type="password" id="pwdconfrim" placeholder="비밀번호 확인"/>
+                        </div>
+                        <div class="input-group">
+                            <i class='bx bxs-lock-alt'></i>
+                            <label for="mname" id="nameText"></label>
+                            <input type="text" name="name" id="mname" placeholder="이름을 입력해주세요"/>
+                        </div>
+                        <div class="input-group">
+                            <i class='bx bxs-lock-alt'></i>
+                            <span>성별을 선택해주세요</span><br/><br/>
+                            <div style="display: inline-block">
+                                <input type="radio" name="gender" id="mail" autocomplete="off" value="남성">
+                                <label for="mail">남성</label>
+                            </div>
+                            <div style="display: inline-block">
+                                <input type="radio" name="gender" id="female" autocomplete="off" value="여성">
+                                <label for="female">여성</label>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <i class='bx bxs-lock-alt'></i>
+                            <label for="mbrith" id="briTxt"></label>
+                            <input type="text" name="birthDate" id="mbrith" placeholder="생년월일을 입력해주세요 ex)19990723"/>
+                        </div>
+                        <div class="input-group">
+                            <i class='bx bxs-lock-alt'></i>
+                            <label for="memail" id="mailTxt"></label>
+                            <input type="text" name="email" id="memail" placeholder="이메일을 입력해주세요"/><br/><br/>
+                            <button type="button" id="checkEmail" style="font-size: 1rem">인증번호 전송</button>
+                        </div>
+                        <div class="input-group">
+                            <i class='bx bxs-lock-alt'></i>
+                            <label for="memailconfirm" id="memailconfirmTxt"></label>
+                            <input type="text" id="memailconfirm" placeholder="인증번호를 입력해주세요"/>
+                        </div>
+                        <div class="input-group">
+                            <i class='bx bxs-lock-alt'></i>
+                            <label for="nicid" id="eid"></label>
+                            <input type="text" name="nickName" id="nicid" placeholder="닉네임을 입력해주세요"/>
+                        </div>
+
+                        <div class="input-group">
+                            <i class="bx bxs-lock-alt"></i>
+                            <label for="adminid" id="aid"></label>
+                            <input type="text" name="adminCode" id="adminid" placeholder="관리자 회원가입시 관리자 번호를 입력해주세요"/>
+                        </div>
+                        <button id="signup" type="button" style="font-size: 1rem">회원가입</button>
+                    </form>
+                    <!--                    </form>-->
+                    <p><br/>
+                        <button onclick="toggle()" class="pointer" style="font-size: 1rem">로그인 하기</button>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+        <!-- END SIGN UP -->
+        <!-- SIGN IN -->
+        <div class="col align-items-center flex-col sign-in">
+            <div class="form-wrapper align-items-center">
+                <div class="form sign-in">
+                    <form method="post">
+                        <div class="input-group">
+                            <i class='bx bxs-user'></i>
+                            <input type="text" name="username" placeholder="아이디를 입력해 주세요">
+                        </div>
+                        <div class="input-group">
+                            <i class='bx bxs-lock-alt'></i>
+                            <input type="password" name="password" placeholder="비밀번호를 입력해 주세요">
+                        </div>
+                        <button type="submit" style="font-size: 1rem">로그인</button>
+                    </form><br/>
+                    <p>
+                        <button onclick="location.href='/system/findMember'" style="font-size: 1rem">아이디/비밀번호 찾기</button>
+<!--                         @{/system/findMember} -->
+                    </p>
+                    <p>
+                        <button onclick="toggle()" class="pointer" style="font-size: 1rem">회원가입 하기</button>
+                    </p>
+                </div>
+            </div>
+            <div class="form-wrapper">
+
+            </div>
+        </div>
+        <!-- END SIGN IN -->
+    </div>
+    <!-- END FORM SECTION -->
+    <!-- CONTENT SECTION -->
+    <div class="row content-row">
+        <!-- SIGN IN CONTENT -->
+        <div class="col align-items-center flex-col">
+            <div class="text sign-in">
+                <h2>
+                    환영합니다
+                </h2>
+
+            </div>
+            <div class="img sign-in">
+
+            </div>
+        </div>
+        <!-- END SIGN IN CONTENT -->
+        <!-- SIGN UP CONTENT -->
+        <div class="col align-items-center flex-col">
+            <div class="img sign-up">
+
+            </div>
+            <div class="text sign-up">
+                <h2>
+                    끼룩로드 회원가입
+                </h2>
+
+            </div>
+        </div>
+        <!-- END SIGN UP CONTENT -->
+    </div>
+    <!-- END CONTENT SECTION -->
+</div>
+</body>
+
+<script>
+    let container = document.getElementById('container')
+
+
+    toggle = () => {
+        container.classList.toggle('sign-in')
+        container.classList.toggle('sign-up')
+    }
+
+    setTimeout(() => {
+        container.classList.add('sign-in')
+    }, 200)
+
+    let idchk = false; // 아이디 검사
+    let nicchk = false; // 닉네임 검사
+    let pwdchk = false; // 패스워드
+    let pwdconfrimchk = false; // 패스워드 확인
+    let namechk = false; // 이름
+    let emchk = false; // 이메일
+    let emconfirmchk = false; // 이메일 인증
+    let birchk = false; // 생일
+    let $adminid = $("#adminid");
+
+    let password, passwordfrim, name, brith, mail, mailconfirm = 0;
+
+    $(function () {
+        let $mid = $("#mid");
+        let $nicid = $("#nicid");
+        let $id = $("#id");
+        let $mpwd = $("#mpwd");
+        let $mname = $("#mname");
+        let $pwdconfrim = $("#pwdconfrim");
+        let $memail = $("#memail");
+        let $mbrith = $("#mbrith");
+
+        let $checkEmail = $("#checkEmail");
+        let $memailconfirm = $("#memailconfirm");
+        let $memailconfirmTxt = $("#memailconfirmTxt");
+
+        //console.dir("mid : "+$mid);
+
+        // 아이디 정규식
+        $mid.on("keyup", function () { // 키보드 눌렀을 때 실행
+            var regExp = /^[a-z]+[a-z0-9]{5,15}$/g;
+            if (!regExp.test($mid.val())) { // id 가 공백인 경우 체크
+                idchk = false;
+                $id.html("<span id='check'>사용할 수 없는 아이디입니다.</span>");
+                $("#check").css({
+                    "color": "#FA3E3E",
+                    "font-weight": "bold",
+                    "font-size": "1rem"
+                })
+            } else { // 공백아니면 중복체크
+                $.ajax({
+                    type: "POST",
+                    url: "/login/checkid",
+                    data: {
+                        "type": "user",
+                        "id": $mid.val()
+                    },
+                    success: function (data) {
+                        if (data == 1) { // 1이면 중복
+                            idchk = false;
+                            $id.html("<span id='check'>이미 존재하는 아이디입니다</span>")
+                            $("#check").css({
+                                "color": "#FA3E3E",
+                                "font-weight": "bold",
+                                "font-size": "1rem"
+                            })
+                            //console.log("중복아이디");
+                        } else { // 아니면 중복아님
+                            idchk = true;
+                            $id.html("<span id='check'>사용가능한 아이디입니다</span>")
+                            $("#check").css({
+                                "color": "#0D6EFD",
+                                "font-weight": "bold",
+                                "font-size": "1rem"
+                            })
+                            //console.log("중복아닌 아이디");
+                        }
+                    }
+                })
+            }
+        });
+        // 비밀번호 정규식
+        $mpwd.on("keyup", function () {
+            var regExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$/;
+            //console.log("email : "+$memail.val());
+            if (!regExp.test($mpwd.val())) {
+                //console.log("형식 미확인");
+                $("#cpwdnew").html("<span id='chkpwd'>패스워드 형식이 맞지 않습니다</span>")
+                $("#chkpwd").css({
+                    "color": "#FA3E3E",
+                    "font-weight": "bold",
+                    "font-size": "1rem"
+                })
+
+                password = 0;
+                console.log("password1", password);
+                pwdchk = false;
+            } else {
+                //console.log("형식 확인");
+                $("#cpwdnew").html("<span id='chkpwd'>패스워드 형식을 확인했습니다</span>")
+                $("#chkpwd").css({
+                    "color": "#0D6EFD",
+                    "font-weight": "bold",
+                    "font-size": "1rem"
+                })
+                password = 1;
+                console.log("password2", password);
+                pwdchk = true;
+                //console.log("idchk : "+idchk);
+                //console.log("pwdconfrimchk : "+pwdconfrimchk);
+                //console.log("emlchkchk : "+emlchkchk);
+            }
+        })
+        // 패스워드 2중 검사
+        $pwdconfrim.on("keyup", function () {
+            if ($pwdconfrim.val() != $mpwd.val()) {
+                pwdconfrimchk = false;
+                //console.log("불일치");
+                $("#pwdText").html("<span id='checkpwd'>비밀번호가 일치하지 않습니다</span>")
+                $("#checkpwd").css({
+                    "color": "#FA3E3E",
+                    "font-weight": "bold",
+                    "font-size": "1rem"
+                })
+                passwordfrim = 0;
+                console.log("passwordfrim1", passwordfrim);
+            } else {
+                pwdconfrimchk = true;
+                //console.log("동일한 비밀번호");
+                $("#pwdText").html("<span id='checkpwd'>비밀번호 일치 확인</span>")
+                $("#checkpwd").css({
+                    "color": "#0D6EFD",
+                    "font-weight": "bold",
+                    "font-size": "1rem"
+                })
+                passwordfrim = 1;
+                console.log("passwordfrim2", passwordfrim);
+            }
+        })
+        // 이름 확인
+        $mname.on("keyup", function () {
+            if ($mname.val() == "") { // id 가 공백인 경우 체크
+                namechk = false;
+                $("#nameTxt").html("<span id='nmchk'>이름은 필수입니다</span>");
+                $("#nmchk").css({
+                    "color": "#FA3E3E",
+                    "font-weight": "bold",
+                    "font-size": "1rem"
+                })
+                name = 0;
+                console.log("name1", name);
+            } else {
+                namechk = true;
+                $("#nmchk").hide();
+                name = 1;
+                console.log("name2", name);
+            }
+        })
+        // 생년월일 정규식 검사
+        $mbrith.on("keyup", function () {
+            var regExp = /([0-9]{4}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1]))$/;
+            //console.log("email : "+$memail.val());
+            if (!regExp.test($mbrith.val())) {
+                //console.log("형식 미확인");
+                birchk = false;
+                $("#briTxt")
+                    .html(
+                        "<span id='chkbir'>생년월일 형식이 맞지않습니다</span>")
+                $("#chkbir").css({
+                    "color": "#FA3E3E",
+                    "font-weight": "bold",
+                    "font-size": "1rem"
+                })
+                brith = 0;
+                console.log("brith1", brith);
+            } else {
+                birchk = true;
+                //console.log("형식 확인");
+                $("#briTxt")
+                    .html(
+                        "<span id='chkbir'>생년월일 형식을 확인했습니다</span>")
+                $("#chkbir").css({
+                    "color": "#0D6EFD",
+                    "font-weight": "bold",
+                    "font-size": "1rem"
+                })
+                brith = 1;
+                console.log("brith2", brith);
+                //console.log("idchk : "+idchk);
+                //console.log("pwdconfrimchk : "+pwdconfrimchk);
+                //console.log("emlchkchk : "+emlchkchk);
+            }
+        })
+        // 이메일 정규식 검사
+        $memail.on("keyup", function () {
+            var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+            //console.log("email : "+$memail.val());
+            if (!regExp.test($memail.val())) {
+                //console.log("형식 미확인");
+                emchk = false;
+                $("#mailTxt")
+                    .html(
+                        "<span id='chkmail'>이메일 형식이 맞지 않습니다</span>")
+                $("#chkmail").css({
+                    "color": "#FA3E3E",
+                    "font-weight": "bold",
+                    "font-size": "1rem"
+                })
+                mail = 0;
+                console.log("mail1", mail);
+            } else {
+                emchk = true;
+                //console.log("형식 확인");
+                $("#mailTxt")
+                    .html(
+                        "<span id='chkmail'>이메일 형식을 확인했습니다</span>")
+                $("#chkmail").css({
+                    "color": "#0D6EFD",
+                    "font-weight": "bold",
+                    "font-size": "1rem"
+                })
+                mail = 1;
+                console.log("mail2", mail);
+            }
+        })
+
+        // 이메일 인증번호
+        $checkEmail.click(function () {
+            $.ajax({
+                type: "POST",
+                url: "mailConfirm",
+                data: {
+                    "email": $memail.val()
+                },
+                success: function (data) {
+                    alert("해당 이메일로 인증번호 발송이 완료되었습니다. \n 확인부탁드립니다.")
+                    console.log("data : " + data);
+                    chkEmailConfirm(data, $memailconfirm, $memailconfirmTxt);
+                }
+            })
+        })
+
+    });
+
+    // 이메일 인증번호 체크 함수
+    function chkEmailConfirm(data, $memailconfirm, $memailconfirmTxt) {
+        $memailconfirm.on("keyup", function () {
+            if (data != $memailconfirm.val()) { //
+                emconfirmchk = false;
+                $memailconfirmTxt.html("<span id='emconfirmchk'>인증번호가 잘못되었습니다</span>")
+                $("#emconfirmchk").css({
+                    "color": "#FA3E3E",
+                    "font-weight": "bold",
+                    "font-size": "1rem"
+                })
+                mailconfirm = 0;
+                console.log("mailconfirm1", mailconfirm);
+                //console.log("중복아이디");
+            } else { // 아니면 중복아님
+                emconfirmchk = true;
+                $memailconfirmTxt.html("<span id='emconfirmchk'>인증번호 확인 완료</span>")
+                $("#emconfirmchk").css({
+                    "color": "#0D6EFD",
+                    "font-weight": "bold",
+                    "font-size": "1rem"
+                })
+                mailconfirm = 1;
+                console.log("mailconfirm2", mailconfirm);
+            }
+        })
+    }
+
+    $("#signup").click(function () {
+        if (password && passwordfrim && name && brith && mail && mailconfirm === 1 && $adminid.val() === '') {
+            let member = $("form[id=signupForm]").serialize();
+            $.ajax({
+                type: "post",
+                url: "/signup",
+                data: member,
+                success: function () {
+                    alert("회원가입이 완료 되었습니다. 로그인 해주세요!");
+                    location.href = "/";
+                },
+                error: function () {
+                    console.log("에러");
+                }
+            })
+        } else if (password && passwordfrim && name && brith && mail && mailconfirm === 1 && $adminid.val() === "sixsense") {
+            let member = $("form[id=signupForm]").serialize();
+            $.ajax({
+                type: "post",
+                url: "/signup",
+                data: member,
+                success: function () {
+                    alert("관리자로 회원가입 되셨습니다");
+                    location.href = "/";
+                },
+                error: function () {
+                    console.log("에러");
+                }
+            })
+        } else if (passwordfrim && name && brith && mail && mailconfirm === 1 && password === 0) {
+            alert("비밀번호 양식이 잘못 되었습니다. 다시한번확인해 주세요");
+        } else if ($adminid.val() !== "sixsense") {
+            alert("관리자 번호가 잘못되었습니다. 관리자가 아니시면 비워주세요!")
+        } else {
+            alert("입력되지 않은 곳이 있습니다. 확인해주세요");
+        }
+
+    })
+
+</script>
+<style>
+    body{
+        background-image: url("/images/background.png");
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+    }
+</style>
+</html>

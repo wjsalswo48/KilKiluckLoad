@@ -1,0 +1,149 @@
+
+•
+java:S1192Æ"yDefine a constant instead of duplicating this literal "ì½”ìŠ¤ ë° êµ¬ê°„ ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤ í™•ì¸í•˜ì„¸ìš”" 6 times.(¨š«íşÿÿÿÿ
+Ÿ
+java:S1192r"ˆDefine a constant instead of duplicating this literal "ì˜ id ê°’ì´ ì¤‘ë³µì…ë‹ˆë‹¤ (ê³ ìœ  ë²ˆí˜¸ì…ë‹ˆë‹¤. ìˆ˜ì •í•˜ì„¸ìš”)" 7 times.(–Ş¤Â
+b
+java:S1192™"FDefine a constant instead of duplicating this literal "datas" 7 times.(©Ò…¬ÿÿÿÿÿ
+Ö
+java:S1192€"¾Define a constant instead of duplicating this literal "ë²ˆì§¸ ë°ì´í„° ì¤‘ ë¹„ì–´ìˆê±°ë‚˜ ì»¬ëŸ¼ì— ìˆ«ìê°€ ìˆìœ¼ë‹ˆ í™•ì¸í•˜ì‹œê³  ì¶”ê°€ ë° í…ìŠ¤íŠ¸ë¡œ ë³€ê²½í•´ì£¼ì„¸ìš”" 7 times.(é……
+^
+java:S1192ƒ"GDefine a constant instead of duplicating this literal "delete" 7 times.(ÑÅµÈ
+
+java:S1192‹"vDefine a constant instead of duplicating this literal "flagë‚´ìš©ì„ use ë˜ëŠ” deleteë¡œ ì„¤ì •í•´ì£¼ì„¸ìš”" 7 times.(´Ø¹Ì
+j
+java:S1192K"ODefine a constant instead of duplicating this literal "/excel/insert" 50 times.(°ñÅÉüÿÿÿÿ
+
+java:S1192’"hDefine a constant instead of duplicating this literal "ë²ˆì§¸ ë‚´ìš©ì„ ì‚­ì œ í•˜ê² ìŠµë‹ˆë‹¤" 7 times.(¶ºòı
+f
+java:S1192œ"PDefine a constant instead of duplicating this literal "course/exelList" 7 times.(êÔŞ
+‹
+java:S1192•"oDefine a constant instead of duplicating this literal "ë²ˆì§¸ ë‚´ìš©ì€ ì´ë¯¸ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤." 7 times.(ıÙõÁÿÿÿÿÿ
+x
+java:S1192"aDefine a constant instead of duplicating this literal "ë²ˆì˜ ë‚´ìš©ì„ í™•ì¸í•˜ì„¸ìš”" 7 times.(èó‘§
+y
+java:S1192"bDefine a constant instead of duplicating this literal "íŒŒì¼ëª… ë˜ëŠ” í˜„ì¬ íŒŒì¼ì˜" 7 times.(èó‘§
+t
+java:S1192"]Define a constant instead of duplicating this literal "íŒŒì¼ì„ í™•ì¸í•´ì£¼ì„¸ìš”" 5 times.(ÚË…‰
+P
+java:S1141b"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+P
+java:S1141w"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+Q
+java:S1141Â"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+Q
+java:S1141Ã"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+Q
+java:S1141Ì"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+Q
+java:S1141Ø"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+Q
+java:S1141Ş"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+Q
+java:S1141ö"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+Q
+java:S1141²"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+Q
+java:S1141³"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+Q
+java:S1141»"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+Q
+java:S1141Á"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+Q
+java:S1141Ö"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+Q
+java:S1141“"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+Q
+java:S1141ë"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+Q
+java:S1141Æ"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+Q
+java:S1141¡"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+8
+java:S1643†"Use a StringBuilder instead.(çÍ®–øÿÿÿÿ
+8
+java:S1643ˆ"Use a StringBuilder instead.(ÉÉ«úÿÿÿÿ
+8
+java:S1643ø"Use a StringBuilder instead.(çÍ®–øÿÿÿÿ
+8
+java:S1643ú"Use a StringBuilder instead.(ÉÉ«úÿÿÿÿ
+8
+java:S1643Ø"Use a StringBuilder instead.(çÍ®–øÿÿÿÿ
+8
+java:S1643Ú"Use a StringBuilder instead.(ÉÉ«úÿÿÿÿ
+8
+java:S1643µ"Use a StringBuilder instead.(çÍ®–øÿÿÿÿ
+8
+java:S1643·"Use a StringBuilder instead.(ÉÉ«úÿÿÿÿ
+8
+java:S1643"Use a StringBuilder instead.(çÍ®–øÿÿÿÿ
+8
+java:S1643"Use a StringBuilder instead.(ÉÉ«úÿÿÿÿ
+8
+java:S1643é"Use a StringBuilder instead.(çÍ®–øÿÿÿÿ
+8
+java:S1643ë"Use a StringBuilder instead.(ÉÉ«úÿÿÿÿ
+8
+java:S1643Ã"Use a StringBuilder instead.(çÍ®–øÿÿÿÿ
+8
+java:S1643Å"Use a StringBuilder instead.(ÉÉ«úÿÿÿÿ
+S
+java:S4973‘"<Strings and Boxed types should be compared using "equals()".(éŞøÊ
+X
+java:S4973”"<Strings and Boxed types should be compared using "equals()".(Á¢±üÿÿÿÿ
+S
+java:S4973†"<Strings and Boxed types should be compared using "equals()".(éŞøÊ
+X
+java:S4973‰"<Strings and Boxed types should be compared using "equals()".(Á¢±üÿÿÿÿ
+S
+java:S4973ç"<Strings and Boxed types should be compared using "equals()".(éŞøÊ
+X
+java:S4973ê"<Strings and Boxed types should be compared using "equals()".(Á¢±üÿÿÿÿ
+S
+java:S4973Á"<Strings and Boxed types should be compared using "equals()".(éŞøÊ
+X
+java:S4973Ä"<Strings and Boxed types should be compared using "equals()".(Á¢±üÿÿÿÿ
+S
+java:S4973›"<Strings and Boxed types should be compared using "equals()".(éŞøÊ
+X
+java:S4973"<Strings and Boxed types should be compared using "equals()".(Á¢±üÿÿÿÿ
+S
+java:S4973õ"<Strings and Boxed types should be compared using "equals()".(éŞøÊ
+X
+java:S4973ø"<Strings and Boxed types should be compared using "equals()".(Á¢±üÿÿÿÿ
+S
+java:S4973Ï"<Strings and Boxed types should be compared using "equals()".(éŞøÊ
+X
+java:S4973Ò"<Strings and Boxed types should be compared using "equals()".(Á¢±üÿÿÿÿ
+Z
+java:S2259p"DA "NullPointerException" could be thrown; "course" is nullable here.(†‘é
+_
+java:S2259v"DA "NullPointerException" could be thrown; "course" is nullable here.(‘èÂ£ıÿÿÿÿ
+g
+java:S3655ğ"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(Õ—İ
+h
+java:S3776B"RRefactor this method to reduce its Cognitive Complexity from 40 to the 15 allowed.(ıÚÍ“
+Q	java:S125i"<This block of commented-out lines of code should be removed.(æÎÿ·
+Q	java:S125o"<This block of commented-out lines of code should be removed.(æÎÿ·
+i
+java:S3776¤"RRefactor this method to reduce its Cognitive Complexity from 43 to the 15 allowed.(Ù†¿å
+n
+java:S3776•"RRefactor this method to reduce its Cognitive Complexity from 39 to the 15 allowed.(ßÂÖ½úÿÿÿÿ
+S
+java:S1854Ã"<Remove this useless assignment to local variable "cellType".(·Ó û
+D
+java:S1481Ã"-Remove this unused "cellType" local variable.(·Ó û
+d	java:S100ö"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(áÃş
+i
+java:S3776ö"RRefactor this method to reduce its Cognitive Complexity from 36 to the 15 allowed.(áÃş
+c	java:S100Í"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(à¹†v
+h
+java:S3776Í"RRefactor this method to reduce its Cognitive Complexity from 36 to the 15 allowed.(à¹†v
+R	java:S125"<This block of commented-out lines of code should be removed.(¨±Şò
+d	java:S100¨"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(çšÏ
+i
+java:S3776¨"RRefactor this method to reduce its Cognitive Complexity from 36 to the 15 allowed.(çšÏ
+d	java:S100ƒ"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(½ãÆŸ
+i
+java:S3776ƒ"RRefactor this method to reduce its Cognitive Complexity from 36 to the 15 allowed.(½ãÆŸ
+T	java:S106°"9Replace this use of System.out or System.err by a logger.(ÛÆ¥òşÿÿÿÿ

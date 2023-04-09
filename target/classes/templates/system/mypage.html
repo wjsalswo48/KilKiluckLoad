@@ -1,0 +1,508 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <title>mypage</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0 ,user-scalable=no"/>
+    <link rel="stylesheet" href="/assets/css/main.css"/>
+    <link rel="stylesheet" href="/assets/css/infoChange.css" />
+    <!--    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>-->
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src='https://fullcalendar.io/releases/fullcalendar/3.9.0/lib/moment.min.js'></script>
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css' rel='stylesheet'/>
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.print.css' rel='stylesheet'
+          media='print'/>
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js'></script>
+<script src="/assets/js/todayCheck.js"></script>
+
+    <!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.0/main.min.css">-->
+    <!--    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.0/main.min.js"></script>-->
+    <!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+
+</head>
+<body class="is-preload">
+<!-- Wrapper -->
+<div id="wrapper">
+    <!-- Main -->
+    <div id="main">
+        <div class="inner">
+            <!-- Header -->
+            <header id="header">
+                <a th:href="@{/system/mypage}" class="logo"><h1>마이페이지</h1></a>
+                <ul class="icons">
+                    <li sec:authentication="principal.member.nickName"></li>
+                    <span id="principalUsername" sec:authentication="principal.username" hidden></span>
+                    <li><a class="label" th:href="@{/system/logout}">로그아웃</a></li>
+                </ul>
+            </header>
+
+            <!-- Banner -->
+            <section>
+                <header class="major">
+                    <h2>회원 페이지</h2>
+                    <button class="tcBtn" id="todayCheck" onclick="b()">출석체크</button>
+                </header>
+                <div class="posts">
+                    <article>
+                        <div class="outer-div">
+                            <i class="fa fa-user-circle-o"></i>
+                            <div class="inner-div inner-div1">
+                                <h2 th:text="${member.nickName}"></h2>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article>
+                        <div class="outer-div">
+                            <div class="inner-div inner-div2">
+                                <h2 id="totalPoint" th:text="${member.totalPoint}"></h2>
+                                <h2>point</h2>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article>
+                        <div class="outer-div">
+                            <div class="inner-div">
+                                <h2><a class="button" th:href="@{/system/passwordChange}">비밀번호 변경</a></h2><br/>
+                                <h2><a class="button" th:href="@{/system/infoChange}">회원정보 변경</a></h2><br/>
+                                <h2><a class="button" th:href="@{/system/memberDrop}">회원탈퇴</a></h2>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+            </section>
+            <section>
+                <header class="major">
+                    <h2>상세정보</h2>
+                </header>
+                <div class="posts">
+                    <div style="margin: 0 auto">
+                        <table class="boardTable" th:align="center" border="1" , th:cellpadding="0" th:cellspacing="0"
+                               th:width="1200">
+                            <thead>
+                            <tr>
+                                <th width="240"><a th:href="@{/system/mypage}">회원 정보</a></th>
+                                <th width="240"><a th:href="@{/mypage/myboardList}">작성글</a></th>
+                                <th width="240"><a th:href="@{/mypage/myreplyList}">작성댓글</a></th>
+                                <th width="240"><a th:href="@{/mypage/itemList}">물건구매내역</a></th>
+                                <th width="240"><a th:href="@{/mypage/pointList}">포인트적립내역</a></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>아이디</td>
+                                <td th:text="${member.memberID}"></td>
+                            </tr>
+                            <tr>
+                                <td>이름</td>
+                                <td th:text="${member.name}"></td>
+                            </tr>
+                            <tr>
+                                <td>닉네임</td>
+                                <td th:text="${member.nickName}"></td>
+                            </tr>
+                            <tr>
+                                <td>이메일 주소</td>
+                                <td th:text="${member.email}"></td>
+                            </tr>
+                            <tr>
+                                <td>가입일</td>
+                                <td th:text="${#dates.format(member.createDate,'yyyy-MM-dd HH:mm')}"></td>
+                            </tr>
+                            <tr>
+                                <td>최근로그인</td>
+                                <td th:text="${#dates.format(member.recentLogin,'yyyy-MM-dd HH:mm')}"></td>
+                            </tr>
+                            <tr>
+                                <td>휴대폰 인증</td>
+                                <td th:text="${checkrole}"></td>
+                                <td th:if="${#strings.equals(checkrole,'휴대폰 미인증')}"><a th:href="@{/system/phone}">휴대폰 인증
+                                    하러가기</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            <!--            <section>-->
+            <!--                <header class="major">-->
+            <!--                    <h2>출석체크</h2>-->
+            <!--                </header>-->
+            <!--                <div class="posts">-->
+            <!--&lt;!&ndash;                    <div class="container calendar-container" style="margin: 0 auto">&ndash;&gt;-->
+            <!--&lt;!&ndash;                        <div id="calendar" style="max-width:900px; margin:40px auto;"></div>&ndash;&gt;-->
+            <!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+
+            <!--&lt;!&ndash;                    <div id="calendarBox" style="width: 70%; margin: 0 auto">&ndash;&gt;-->
+            <!--&lt;!&ndash;                        <div id="calendar"></div>&ndash;&gt;-->
+            <!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+
+            <!--                </div>-->
+
+
+            <!--            </section>-->
+
+
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <!-- Sidebar -->
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <div class="inner">
+            <section id="sideLogo" class="alt">
+                <a href="/">
+                    <img src="/images/logo.png">
+                </a>
+            </section>
+            <!-- Menu -->
+            <nav id="menu">
+                <header class="major">
+                    <h2>Menu</h2>
+                </header>
+                <ul>
+                    <li><a href="/">홈페이지</a></li>
+                    <li><a href="/road/informationRoad">갈맷길 정보</a></li>
+                    <li>
+                        <span class="opener">갈맷길 코스안내</span>
+                        <ul>
+                            <li><a href="/road/getRoadList?courseID=1C&index=0">코스1</a></li>
+                            <li><a href="/road/getRoadList?courseID=2C&index=0">코스2</a></li>
+                            <li><a href="/road/getRoadList?courseID=3C&index=0">코스3</a></li>
+                            <li><a href="/road/getRoadList?courseID=4C&index=0">코스4</a></li>
+                            <li><a href="/road/getRoadList?courseID=5C&index=0">코스5</a></li>
+                            <li><a href="/road/getRoadList?courseID=6C&index=0">코스6</a></li>
+                            <li><a href="/road/getRoadList?courseID=7C&index=0">코스7</a></li>
+                            <li><a href="/road/getRoadList?courseID=8C&index=0">코스8</a></li>
+                            <li><a href="/road/getRoadList?courseID=9C&index=0">코스9</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span class="opener">게시판</span>
+                        <ul>
+                            <li><a href="/board/getReportBoardList">신고게시판</a></li>
+                            <li><a href="/board/getFreeBoardList">자유게시판</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/QR/QRGuide">QR체크</a></li>
+                    <li><a href="/shop/productsList">포인트 쇼핑몰</a></li>
+                    <li sec:authorize="hasAnyRole('ROLE_ADMIN')">
+                        <span class="opener">관리자 모드</span>
+                        <ul>
+                            <li>
+                                <span> 정보 가져오기 </span>
+                                <ul>
+                                    <li><a href="/json/insertCourse">코스 가져오기</a></li>
+                                    <li><a href="/json/roadJson">구간 가져오기</a></li>
+                                    <li><a href="/json/touristJson">여행지 정보 가져오기</a></li>
+                                    <li><a href="/json/toiletJson">화장실 정보 가져오기</a></li>
+                                    <li><a href="/json/restaurantJson">식당 정보 가져오기</a></li>
+                                    <li><a href="/json/hotelJson">숙박업소 정보 가져오기</a></li>
+                                    <li><a href="/json/photoZoneJson">포토존 정보 가져오기</a></li>
+                                    <li><a href="/json/allJSON">모든 정보 가져오기</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <span> 엑셀 다운로드 </span>
+                                <ul>
+                                    <li><a th:href="@{/excel/roadDownload}">구간 정보 엑셀 다운로드</a></li>
+                                    <li><a th:href="@{/excel/toiletDownload}">화장실 정보 엑셀 다운로드</a></li>
+                                    <li><a th:href="@{/excel/ptozoneDownload}">포토존 정보 엑셀 다운로드</a></li>
+                                    <li><a th:href="@{/excel/TouristDownload}">여행지 정보 엑셀 다운로드</a></li>
+                                    <li><a th:href="@{/excel/HotelDownload}">호텔 정보 엑셀 다운로드</a></li>
+                                    <li><a th:href="@{/excel/restaurantDownload}">레스토랑 정보 엑셀 다운로드</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <span> 정보 추가,수정,삭제 </span>
+                                <ul>
+                                    <li><a th:href="@{/excel/insert}">구간 정보 엑셀</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <!-- Section -->
+            <section>
+                <header class="major">
+                    <h2>Team. Sixsense</h2>
+                </header>
+                <p>클라우드 No.1 메가존클라우드와 함께하는</p>
+                <p>클라우드 네이티브 애플리케이션 개발자 양성과정</p>
+                <ul class="contact">
+                    <li class="icon solid fa-handshake">광안대교 2반 3조</li>
+                    <li class="icon solid fa-users">
+                        <p>김석림 김지훈 손용균</p>
+                        <p>윤기영 전민재 정수승</p>
+                    </li>
+                    <li class="icon solid fa-home">
+                        <p>부산광역시 해운대구 센텀동로 41</p>
+                        <p>센텀벤처타운 5층 광안대교 2반</p>
+                    </li>
+                </ul>
+            </section>
+            <!-- Footer -->
+            <footer id="footer">
+                <p class="copyright">&copy; Sixsense. All rights reserved. Demo Images: <a
+                        href="https://busan.go.kr">부산광역시, </a><a href="https://galmaetgil.org">걷고싶은부산.</a> Design: <a href="https://html5up.net">HTML5
+                    UP</a>.</p>
+            </footer>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/browser.min.js"></script>
+<script src="/assets/js/breakpoints.min.js"></script>
+<script src="/assets/js/util.js"></script>
+<script src="/assets/js/main.js"></script>
+<!--<script src="https://code.jquery.com/jquery-1.12.4.js"></script>-->
+<!--<script src='https://fullcalendar.io/releases/fullcalendar/3.9.0/lib/moment.min.js'></script>-->
+<!--<link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css'rel='stylesheet'/>-->
+<!--<link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.print.css' rel='stylesheet' media='print'/>-->
+<!--<script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js'></script>-->
+
+<!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.0/main.min.css">-->
+<!--<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.0/main.min.js"></script>-->
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+
+
+</body>
+
+
+<script type="text/javascript">
+////////
+//     let $todayCheck = $("#todayCheck");
+
+//     $(function () {
+//         $.ajax({
+//             type: "GET",
+//             url: "/todayCheckALL",
+//             data: {
+//                 "memberID": $("#principalUsername").html()
+//             },
+//             success: function (data) {
+//                 if (data = 1) {
+//                     $("#todayCheck").prop('disabled', true);
+//                     $("#todayCheck").html('출석완료');
+//                 }
+//             }
+
+//         })
+//         console.log(' 출석정보 불러오기');
+//     });
+
+//     $todayCheck.click(function () {
+//         $.ajax({
+//             type: "GET",
+//             url: "/todayCheck",
+//             data: {
+//                 "memberID": $("#principalUsername").html()
+//             },
+//             success: function (data) {
+//                 console.log(data);
+//                 alert("출석체크 완료! 100포인트가 지급되었습니다!");
+//                 console.log(data);
+//                 $("#totalPoint").text(data);
+//                 $("#todayCheck").prop('disabled', true);
+//                 $("#todayCheck").html('출석완료');
+//             },
+//         })
+//     })
+//////
+
+    // let $todayCheck = $("#todayCheck");
+    // let $check;
+    //
+    // document.addEventListener('DOMContentLoaded', function () {
+    //     var calendarEl = document.getElementById('calendar');
+    //     var calendar = new FullCalendar.Calendar(calendarEl, {
+    //         timeZone: 'UTC',
+    //         initialView: 'dayGridMonth', // 홈페이지에서 다른 형태의 view를 확인할  수 있다.
+    //         events:[ // 일정 데이터 추가 , DB의 event를 가져오려면 JSON 형식으로 변환해 events에 넣어주면된다.
+    //             {
+    //                 title:'일정',
+    //                 start:'2021-05-26',
+    //                 end:'2021-05-27'
+    //             }
+    //         ], headerToolbar:{
+    //             center: 'addEventButton'
+    //         }, customButtons: {
+    //             addEventButton:{
+    //                 text : "출석",
+    //                 id: 'check',
+    //                 click : function (event) {
+    //                     alert(event.target);
+    //                     $.ajax({
+    //                         type : "GET",
+    //                         url : "/todayCheck",
+    //                         success: function (data){
+    //                             console.log("-----------", data);
+    //                             // $(".fc-custom2-button").prop('disabled', true);
+    //                             // $(".fc-custom2-button").html('출석완료');
+    //                             $("#fc-addEventButton-button").prop('disabled', true);
+    //                             $("#fc-addEventButton-button").html('출석완료');
+    //                         }
+    //                     })
+    //                 }
+    //             }
+    //         },
+    //         eventSources : [{
+    //             events: function(info, successCallback, failureCallback){
+    //                 $.ajax({
+    //                     url: '/todayCheckAll',
+    //                     type : 'POST',
+    //                     dataType: 'json',
+    //                     data:{
+    //                         start : moment(info.startStr).format('YYYY-MM-DD'),
+    //                         end : moment(info.endStr).format('YYYY-MM-DD')
+    //                     },
+    //                     success : function(data){
+    //                         successCallback(data);
+    //                     }
+    //                 })
+    //             }
+    //
+    //         }],
+    //         editable: true // false로 변경 시 draggable 작동 x
+    //     });
+    //     calendar.render();
+    // });
+
+
+    // let $todayCheck = $("#todayCheck");
+    // let $check;
+    // let $obj;
+    //
+    // document.addEventListener('DOMContentLoaded', function () {
+    //     let calendarEl = document.getElementById('calendar');
+    //     let calendar = new FullCalendar.Calendar(calendarEl, {
+    //         timeZone: 'UTC',
+    //         initialView: 'dayGridMonth', // 홈페이지에서 다른 형태의 view를 확인할  수 있다.
+    //         events:[ // 일정 데이터 추가 , DB의 event를 가져오려면 JSON 형식으로 변환해 events에 넣어주면된다.
+    //             {
+    //                 // title:'출석체크',
+    //                 // start:'2022-12-26',
+    //                 // end:'2022-12-28'
+    //
+    //                 // color 값을 추가해 색상도 변경 가능 자세한 내용은 하단의 사이트 참조
+    //             }
+    //         ], headerToolbar: {
+    //             center: 'addEventButton' // headerToolbar에 버튼을 추가
+    //         }, customButtons: {
+    //             addEventButton: { // 추가한 버튼 설정
+    //                 text : "일정 추가",  // 버튼 내용
+    //                 click : function(){ // 버튼 클릭 시 이벤트 추가
+    //                     let $content;
+    //                     let $start_date;
+    //                     let $end_date;
+    //
+    //                     $.ajax({
+    //                         url: '/todayCheckAll',
+    //                         type: 'GET',
+    //                         dataType: "JSON",
+    //                         success: function (data) {
+    //                             console.log("==========", data);
+    //                             console.log("1111111111111", data[0]);
+    //                             // $check = data;
+    //                             // $start_date = data.;
+    //                             // $end_date = data[1];
+    //                             $start_date = data[0];
+    //                             $end_date = data[2];
+    //                             console.log("22222222222", $start_date);
+    //                             console.log("22222222222", $end_date);
+    //                             $obj = {
+    //                                 "start" : $start_date,
+    //                                 "end" : $end_date
+    //                             }//전송할 객체 생성
+    //                             console.log("333333333", $obj);
+    //                         },
+    //                         error: function () {
+    //                             alert('there was an error while fetching events!');
+    //                         },
+    //                     })
+    //                     // $obj = {
+    //                     //     "start" : $start_date,
+    //                     //     "end" : $end_date
+    //                     // }//전송할 객체 생성
+    //
+    //                 }
+    //             }
+    //         },
+    //
+    //         editable: true, // false로 변경 시 draggable 작동 x
+    //         displayEventTime: false // 시간 표시 x
+    //     });
+    //     calendar.render();
+    // });
+
+    // $(document).ready(function(){
+    //     $('#calendar').fullCalendar({
+    //         header: {
+    //             right: 'custom2 prevYear,prev,next,nextYear'
+    //         },
+    //         // 출석체크를 위한 버튼 생성
+    //         customButtons: {
+    //             custom2: {
+    //                 text: '출석체크하기',
+    //                 id: 'check',
+    //                 click: function() {
+    //                     $.ajax({
+    //                         url: '/todayCheck',
+    //                         type: 'POST',
+    //                         data: {userID : $("#principalUsername").html()},
+    //                         dataType : 'text',
+    //                         complete : function(data) {
+    //                             console.log(data);
+    //                             alert("===>  " + data.responseText);
+    //                             $(".fc-custom2-button").prop('disabled', true);
+    //                             $(".fc-custom2-button").html('출석완료');
+    //                             // $("td[data-date]").equals (data.responseText).css("backgroundColor", "black");
+    //                             // console.log( $("td[data-date]").value);
+    //                             // (data.responseText).css("backgroundColor", "black");
+    //                         }
+    //                     })
+    //                 }
+    //             }
+    //         },
+    //         // 출석 정보 가져오기
+    //         eventSources: [
+    //             {
+    //                 url: '/todayCheck',
+    //                 type: 'GET',
+    //                 dataType: "json",
+    //                 complete : function(xhr){
+    //                     let jsonObj = JSON.parse(xhr.responseText);
+    //                      console.log("=> " + jsonObj.resultDate);
+    //
+    //                     $("td[data-date='2022-12-10']").css("backgroundColor", "black");
+    //                 },
+    //                 error: function (err){
+    //                     // alert(err.toString().valueOf());
+    //                 },
+    //                 color: 'purple',
+    //                 textColor: 'white'
+    //             }
+    //         ]
+    //     });
+    // });
+
+</script>
+<style>
+    #todayCheck{
+        display: inline-block;
+        margin: 0 0 2em 0;
+        transform: translate(140%, -155%);
+        border-bottom: 0px !important;
+    }
+</style>
+
+</html>

@@ -1,0 +1,97 @@
+
+a	java:S112È"FDefine and throw a dedicated exception instead of using a generic one.(»ÃÑ³øÿÿÿÿ
+o
+java:S2293`"YReplace the type specification in this constructor call with the diamond operator ("<>").(·ÉÌ
+o
+java:S2293v"YReplace the type specification in this constructor call with the diamond operator ("<>").(ÛÊ¼ø
+e
+java:S1192Î"IDefine a constant instead of duplicating this literal "redirect" 7 times.(Õëİ‡ùÿÿÿÿ
+d
+java:S1192 "HDefine a constant instead of duplicating this literal "product" 3 times.(¯ Ø±şÿÿÿÿ
+a
+java:S1192"JDefine a constant instead of duplicating this literal "filesList" 3 times.(…šä¸
+d
+java:S1192Í"HDefine a constant instead of duplicating this literal "Referer" 7 times.(©ÿüäşÿÿÿÿ
+s
+java:S1192×"\Define a constant instead of duplicating this literal "redirect:/shop/productsList" 4 times.(ğÎ…‹
+X
+java:S4973ø"<Strings and Boxed types should be compared using "equals()".(æÛÎöûÿÿÿÿ
+f
+java:S3655U"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(£ØºÔ
+l
+java:S3655²"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(åú¯Âşÿÿÿÿ
+g
+java:S3655¼"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(»óÑé
+l
+java:S3655ô"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(åú¯Âşÿÿÿÿ
+Q	java:S125V"<This block of commented-out lines of code should be removed.(à±óÃ
+M	java:S106]"9Replace this use of System.out or System.err by a logger.(Ó¡¥|
+S	java:S106f"9Replace this use of System.out or System.err by a logger.(”ëº¼ùÿÿÿÿ
+7
+java:S1116j"Remove this empty statement.(ôŸìúÿÿÿÿ
+S	java:S106l"9Replace this use of System.out or System.err by a logger.(ÔÈÉıÿÿÿÿ
+S	java:S106t"9Replace this use of System.out or System.err by a logger.(ùÈÅ¥üÿÿÿÿ
+R	java:S125‡"<This block of commented-out lines of code should be removed.(¬•Õê
+\
+java:S4684–"@Replace this persistent entity with a simple POJO or DTO object.(ÍÈı£øÿÿÿÿ
+O	java:S106—"9Replace this use of System.out or System.err by a logger.(™áå 
+W
+java:S4684Ä"@Replace this persistent entity with a simple POJO or DTO object.(õ¿ŞÒ
+W
+java:S4684Ş"@Replace this persistent entity with a simple POJO or DTO object.(¡¶¹ø
+ˆ
+java:S1130ß"lRemove the declaration of thrown exception 'java.io.IOException', as it cannot be thrown from method's body.(Á•ªîşÿÿÿÿ
+O	java:S106à"9Replace this use of System.out or System.err by a logger.(àÅ¶ø
+W
+java:S4684ğ"@Replace this persistent entity with a simple POJO or DTO object.( ÏÈâ
+O	java:S106÷"9Replace this use of System.out or System.err by a logger.(«ˆûª
+T	java:S106…"9Replace this use of System.out or System.err by a logger.(¼Á¬Æşÿÿÿÿ
+\
+java:S4684"@Replace this persistent entity with a simple POJO or DTO object.(ğÁÈÚşÿÿÿÿ
+\
+java:S4684"@Replace this persistent entity with a simple POJO or DTO object.(ğÁÈÚşÿÿÿÿ
+ˆ
+java:S1130"lRemove the declaration of thrown exception 'java.io.IOException', as it cannot be thrown from method's body.(ğÁÈÚşÿÿÿÿ
+W
+java:S4684™"@Replace this persistent entity with a simple POJO or DTO object.(æï—Œ
+T	java:S106š"9Replace this use of System.out or System.err by a logger.(Ù¾Ê†ùÿÿÿÿ
+T	java:S106œ"9Replace this use of System.out or System.err by a logger.(Ôááùÿÿÿÿ
+O	java:S106¢"9Replace this use of System.out or System.err by a logger.(ğ€‹
+T	java:S106©"9Replace this use of System.out or System.err by a logger.(Î°’ûÿÿÿÿ
+\
+java:S4684¸"@Replace this persistent entity with a simple POJO or DTO object.(«ÿæÂûÿÿÿÿ
+\
+java:S4684¸"@Replace this persistent entity with a simple POJO or DTO object.(«ÿæÂûÿÿÿÿ
+\
+java:S4684¸"@Replace this persistent entity with a simple POJO or DTO object.(«ÿæÂûÿÿÿÿ
+R	java:S125½"<This block of commented-out lines of code should be removed.(²·ÿŒ
+\
+java:S4684Ï"@Replace this persistent entity with a simple POJO or DTO object.(øİí’üÿÿÿÿ
+\
+java:S4684Ğ"@Replace this persistent entity with a simple POJO or DTO object.(ÚíÜ›şÿÿÿÿ
+;
+java:S3751Ï"Make this method non "private".(øİí’üÿÿÿÿ
+T	java:S106×"9Replace this use of System.out or System.err by a logger.(öĞÔóüÿÿÿÿ
+W	java:S125ñ"<This block of commented-out lines of code should be removed.(ö·²Ÿşÿÿÿÿ
+T	java:S106„"9Replace this use of System.out or System.err by a logger.(ÖÊøõùÿÿÿÿ
+W	java:S125š"<This block of commented-out lines of code should be removed.(ôóø„üÿÿÿÿ
+W
+java:S4684¥"@Replace this persistent entity with a simple POJO or DTO object.(£Íªµ
+V
+java:S4684¦"@Replace this persistent entity with a simple POJO or DTO object.(òÖV
+R	java:S125Á"<This block of commented-out lines of code should be removed.(ˆı™ñ
+T	java:S106Ç"9Replace this use of System.out or System.err by a logger.(ºŸ•Ÿûÿÿÿÿ
+R	java:S125ß"<This block of commented-out lines of code should be removed.(Ğôˆë
+\
+java:S4684ï"@Replace this persistent entity with a simple POJO or DTO object.(ºªŸÄÿÿÿÿÿ
+R	java:S125ü"<This block of commented-out lines of code should be removed.(­ïã
+Q
+java:S1128";Remove this unused import 'java.net.MalformedURLException'.(ªËŞˆ
+T
+java:S1128">Remove this unused import 'java.nio.charset.StandardCharsets'.(ï˜ŞÛ
+\
+java:S1128"ARemove this unused import 'org.springframework.http.HttpHeaders'.(ãŸñ×úÿÿÿÿ
+_
+java:S1128"DRemove this unused import 'org.springframework.http.ResponseEntity'.(¶¯ø¦úÿÿÿÿ
+W
+java:S1128"BRemove this unused import 'org.springframework.web.util.UriUtils'.(Ú \

@@ -1,0 +1,25 @@
+
+~
+java:S1192Z"cDefine a constant instead of duplicating this literal "ì»¨íŠ¸ë¡¤ëŸ¬======================" 4 times.(Ååöñûÿÿÿÿ
+k	java:S1176"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÂóÁ¶üÿÿÿÿ
+k	java:S117Y"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(À²ÖĞøÿÿÿÿ
+k	java:S117h"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(£¦©úÿÿÿÿ
+f
+java:S36557"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(¥¢çÍ
+c	java:S100&"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µ¢“
+V	java:S125,"<This block of commented-out lines of code should be removed.(Æ¥­êúÿÿÿÿ
+S	java:S1069"9Replace this use of System.out or System.err by a logger.(¡¤åùÿÿÿÿ
+P	java:S125<"<This block of commented-out lines of code should be removed.(€š÷f
+h	java:S100B"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ı¼À°ùÿÿÿÿ
+h	java:S100G"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(â‹¶óşÿÿÿÿ
+Q	java:S125L"<This block of commented-out lines of code should be removed.(ªÛ–¾
+S	java:S106Z"9Replace this use of System.out or System.err by a logger.(Ååöñûÿÿÿÿ
+N	java:S106["9Replace this use of System.out or System.err by a logger.(„Ä¼°
+S	java:S106\"9Replace this use of System.out or System.err by a logger.(ÊØ×üÿÿÿÿ
+S	java:S106]"9Replace this use of System.out or System.err by a logger.(ïöºøÿÿÿÿ
+h	java:S100f"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(˜Ğ¹Çúÿÿÿÿ
+[
+java:S4684h"@Replace this persistent entity with a simple POJO or DTO object.(£¦©úÿÿÿÿ
+V
+java:S4684i"@Replace this persistent entity with a simple POJO or DTO object.(Ôèßâ
+h	java:S100u"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(„ŠÂÿÿÿÿÿ

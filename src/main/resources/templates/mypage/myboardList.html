@@ -1,0 +1,349 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <title>mypage</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <link rel="stylesheet" href="/assets/css/main.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Myeongjo&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/mypage.css" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+</head>
+<body class="is-preload">
+<!-- Wrapper -->
+<div id="wrapper">
+    <!-- Main -->
+    <div id="main">
+        <div class="inner">
+            <!-- Header -->
+            <header id="header">
+                <a th:href="@{/system/mypage}" class="logo"><h1>마이페이지</h1></a>
+                <ul class="icons">
+                    <li sec:authentication="principal.member.nickName"></li>
+                    <span id="principalUsername" sec:authentication="principal.username" hidden></span>
+                    <li><a class="label" th:href="@{/system/logout}">로그아웃</a></li>
+                </ul>
+            </header>
+
+            <!-- Banner -->
+            <section>
+                <header class="major">
+                    <h2>회원 페이지</h2>
+                </header>
+                <div class="posts">
+                    <article>
+                        <div class="outer-div">
+                            <div class="inner-div inner-div1">
+                                <h2 th:text="${member.nickName}"></h2>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article>
+                        <div class="outer-div">
+                            <div class="inner-div inner-div2">
+                                <h2 th:text="${member.totalPoint}"></h2>
+                                <h2>point</h2>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article>
+                        <div class="outer-div">
+                            <div class="inner-div">
+                                <h2><a th:href="@{/system/passwordChange}">비밀번호 변경</a></h2><br/>
+                                <h2><a th:href="@{/system/infoChange}">회원정보 변경</a></h2><br/>
+                                <h2><a th:href="@{/system/memberDrop}">회원탈퇴</a></h2>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+            </section>
+            <!--            <section>-->
+            <header class="major">
+                <h2>내가 쓴 게시글</h2>
+            </header>
+                <table class="boardTable" th:align="center" border="1" , th:cellpadding="0" th:cellspacing="0"
+                       th:width="1200">
+                    <thead>
+	                    <tr>
+	                        <th width="240"><a th:href="@{/system/mypage}">회원 정보</a></th>
+	                        <th width="240"><a th:href="@{/mypage/myboardList}">작성글</a></th>
+	                        <th width="240"><a th:href="@{/mypage/myreplyList}">작성댓글</a></th>
+	                        <th width="240"><a th:href="@{/mypage/itemList}">물건구매내역</a></th>
+	                        <th width="240"><a th:href="@{/mypage/pointList}">포인트적립내역</a></th>
+	                    </tr>
+                    </thead>
+                </table>
+            <div class="posts">
+                <div style="margin: 0 auto">
+                    <input type="radio" id="tab-1" name="show" checked onclick="return true" />
+                    <input type="radio" id="tab-2" name="show" />
+                    <div class="tab">
+                        <label for="tab-1">자유게시판</label>
+                        <label for="tab-2">신고게시판</label>
+                    </div>
+
+                    <div class="roadContent">
+                        <div style="margin: 0 auto" class="content-dis">
+                            <header class="major">
+                                <h2>
+                                    <strong>자유게시판</strong>
+                                </h2>
+                            </header>
+                            <!-- 게시글 리스트-->
+                            <div>
+                                <table class="boardTable" th:align="center" border="1" th:cellpadding="0"
+                                       th:cellspacing="0" th:width="1100">
+                                    <tr>
+                                        <th width="70">번호</th>
+                                        <th width="100">분류</th>
+                                        <th width="400">제목</th>
+                                        <th width="120">작성자</th>
+                                        <th width="120">등록일</th>
+                                        <th width="120">조회수</th>
+                                        <th width="120">추천수</th>
+                                    </tr>
+                                    <tr th:each="myfreeBoard, state : ${myfreeBoardList}">
+                                        <td th:text="${totalNum - state.count - currentPage*10 + 1}" th:align="center"></td>
+                                        <td th:text="${myfreeBoard.boardCategory}" th:align="center"></td>
+
+                                        <td>
+                                            <img th:if="${myfreeBoard.getFreeBoardFileList().size()}>=1"
+                                                 src="/images/haveFile.png" style="width: 20px; height: 20px;">
+                                            <a th:href="@{/board/getFreeBoard(freeBID=${myfreeBoard.freeBID})}"
+                                               th:text="${myfreeBoard.title}"></a>&nbsp;[<span
+                                                th:text="${myfreeBoard.replyCnt}"></span>]&nbsp;
+                                            <img th:if="${myfreeBoard.viewCnt}>=100" src="/images/hit.gif"
+                                                 style="width: 20px; height: 15px;">
+                                        </td>
+
+                                        <!--              <td th:text="${myfreeBoard.title}"  th:align="center"></td>-->
+
+
+                                        <td th:text="${myfreeBoard.memberID.nickName}" th:align="center"></td>
+                                        <td th:text="${#dates.format(myfreeBoard.createDate, 'yyyy-MM-dd HH:mm')}" th:align="center"></td>
+                                        <td th:text="${myfreeBoard.viewCnt}" th:align="center"></td>
+                                        <td th:text="${myfreeBoard.recommendCnt}" th:align="center"></td>
+                                    </tr>
+                                </table>
+
+                                <div class="pagination">
+                                    <ul>
+                                        <li th:each="page : ${#numbers.sequence(0, searchResult.getPage() - 1)}">
+                                            <a th:href="@{/mypage/myboardList(page=${pageStat.index},
+            				searchKeyword=${searchResult.getSearchKeyword()},
+            				searchCategory=${searchResult.getSearchCategory()})}"
+                                               th:text="${pageStat.index + 1}"></a></li>
+                                    </ul>
+                                </div>
+
+                                <form th:action="@{/mypage/myboardList}" method="post">
+                                    <table th:align="center" border="1" th:cellpadding="0"
+                                           th:cellspacing="0" th:width="700">
+                                        <tr>
+                                            <td align="right">
+                                                <select name="searchCondition">
+                                                    <option value="TITLE">게시글 제목</option>
+                                                </select>
+                                                <input name="searchKeyword" type="text"/>
+                                                <input type="submit" value="검색"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </form>
+                            </div>
+
+
+                        </div>
+
+
+                        <div style="margin: 0 auto" class="content-dis">
+                            <header class="major">
+                                <h2>
+                                    <strong>신고게시판</strong>
+                                </h2>
+                            </header>
+
+                            <table class="boardTable" th:align="center" border="1" th:cellpadding="0" th:cellspacing="0" th:width="1100">
+                                <tr>
+                                    <th width="100">번호</th>
+                                    <th width="100">처리상태</th>
+                                    <th width="600">제목</th>
+                                    <th width="150">작성자</th>
+                                    <th width="150">등록일</th>
+                                </tr>
+                                <tr th:each="myreportBoard, state : ${myreportBoardList}">
+                                    <td th:text="${totalNumReport - state.count - currentPageReport*10 + 1}" th:align="center"></td>
+                                    <td th:text="${myreportBoard.boardCategory}" th:align="center"></td>
+
+                                    <td>
+                                        <a th:href="@{/board/getReportBoard(reportID=${myreportBoard.reportID})}"
+                                           th:text="${myreportBoard.title}"></a>
+                                    </td>
+                                    <td th:text="${myreportBoard.memberID.nickName}" th:align="center"></td>
+                                    <td th:text="${#dates.format(myreportBoard.createDate, 'yyyy-MM-dd HH:mm')}" th:align="center"></td>
+                                </tr>
+                            </table>
+
+                            <div class="pagination">
+                                <ul>
+                                    <li th:each="page : ${#numbers.sequence(0, searchResultReport.getPage() - 1)}">
+                                        <a th:href="@{/mypage/myboardList(page=${pageStat.index},
+            				searchKeyword=${searchResultReport.getSearchKeyword()},
+            				searchCategory=${searchResultReport.getSearchCategory()})}"
+                                           th:text="${pageStat.index + 1}"></a></li>
+                                </ul>
+                            </div>
+
+                            <form th:action="@{/mypage/myboardList}" method="post">
+                                <table th:align="center" border="1" th:cellpadding="0"
+                                       th:cellspacing="0" th:width="700">
+                                    <tr>
+                                        <td align="right">
+                                            <select name="searchCondition">
+                                                <option value="TITLE">게시글 제목</option>
+                                            </select>
+                                            <input name="searchKeyword" type="text"/>
+                                            <input type="submit" value="검색"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </form>
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+            <!--        </section>-->
+
+
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <!-- Sidebar -->
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <div class="inner">
+            <section id="sideLogo" class="alt">
+                <a href="/">
+                    <img src="/images/logo.png">
+                </a>
+            </section>
+            <!-- Menu -->
+            <nav id="menu">
+                <header class="major">
+                    <h2>Menu</h2>
+                </header>
+                <ul>
+                    <li><a href="/">홈페이지</a></li>
+                    <li><a href="/road/informationRoad">갈맷길 정보</a></li>
+                    <li>
+                        <span class="opener">갈맷길 코스안내</span>
+                        <ul>
+                            <li><a href="/road/getRoadList?courseID=01C&index=0">코스1</a></li>
+                            <li><a href="/road/getRoadList?courseID=02C&index=0">코스2</a></li>
+                            <li><a href="/road/getRoadList?courseID=03C&index=0">코스3</a></li>
+                            <li><a href="/road/getRoadList?courseID=04C&index=0">코스4</a></li>
+                            <li><a href="/road/getRoadList?courseID=05C&index=0">코스5</a></li>
+                            <li><a href="/road/getRoadList?courseID=06C&index=0">코스6</a></li>
+                            <li><a href="/road/getRoadList?courseID=07C&index=0">코스7</a></li>
+                            <li><a href="/road/getRoadList?courseID=08C&index=0">코스8</a></li>
+                            <li><a href="/road/getRoadList?courseID=09C&index=0">코스9</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span class="opener">게시판</span>
+                        <ul>
+                            <li><a href="/board/getReportBoardList">신고게시판</a></li>
+                            <li><a href="/board/getFreeBoardList">자유게시판</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/QR/QRGuide">QR체크</a></li>
+                    <li><a href="/shop/productsList">포인트 쇼핑몰</a></li>
+                    <li sec:authorize="hasAnyRole('ROLE_ADMIN')">
+                        <span class="opener">관리자 모드</span>
+                        <ul>
+                            <li>
+                                <span> 정보 가져오기 </span>
+                                <ul>
+                                    <li><a href="/json/insertCourse">코스 가져오기</a></li>
+                                    <li><a href="/json/roadJson">구간 가져오기</a></li>
+                                    <li><a href="/json/touristJson">여행지 정보 가져오기</a></li>
+                                    <li><a href="/json/toiletJson">화장실 정보 가져오기</a></li>
+                                    <li><a href="/json/restaurantJson">식당 정보 가져오기</a></li>
+                                    <li><a href="/json/hotelJson">숙박업소 정보 가져오기</a></li>
+                                    <li><a href="/json/photoZoneJson">포토존 정보 가져오기</a></li>
+                                    <li><a href="/json/allJSON">모든 정보 가져오기</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <span> 엑셀 다운로드 </span>
+                                <ul>
+                                    <li><a th:href="@{/excel/roadDownload}">구간 정보 엑셀 다운로드</a></li>
+                                    <li><a th:href="@{/excel/toiletDownload}">화장실 정보 엑셀 다운로드</a></li>
+                                    <li><a th:href="@{/excel/ptozoneDownload}">포토존 정보 엑셀 다운로드</a></li>
+                                    <li><a th:href="@{/excel/TouristDownload}">여행지 정보 엑셀 다운로드</a></li>
+                                    <li><a th:href="@{/excel/HotelDownload}">호텔 정보 엑셀 다운로드</a></li>
+                                    <li><a th:href="@{/excel/restaurantDownload}">레스토랑 정보 엑셀 다운로드</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <span> 정보 추가,수정,삭제 </span>
+                                <ul>
+                                    <li><a th:href="@{/excel/insert}">구간 정보 엑셀</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <!-- Section -->
+            <section>
+                <header class="major">
+                    <h2>Team. Sixsense</h2>
+                </header>
+                <p>클라우드 No.1 메가존클라우드와 함께하는</p>
+                <p>클라우드 네이티브 애플리케이션 개발자 양성과정</p>
+                <ul class="contact">
+                    <li class="icon solid fa-handshake">광안대교 2반 3조</li>
+                    <li class="icon solid fa-users">
+                        <p>김석림 김지훈 손용균</p>
+                        <p>윤기영 전민재 정수승</p>
+                    </li>
+                    <li class="icon solid fa-home">
+                        <p>부산광역시 해운대구 센텀동로 41</p>
+                        <p>센텀벤처타운 5층 광안대교 2반</p>
+                    </li>
+                </ul>
+            </section>
+            <!-- Footer -->
+            <footer id="footer">
+                <p class="copyright">&copy; Sixsense. All rights reserved. Demo Images: <a
+                        href="https://busan.go.kr">부산광역시, </a><a href="https://galmaetgil.org">걷고싶은부산.</a> Design: <a href="https://html5up.net">HTML5
+                    UP</a>.</p>
+            </footer>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/browser.min.js"></script>
+<script src="/assets/js/breakpoints.min.js"></script>
+<script src="/assets/js/util.js"></script>
+<script src="/assets/js/main.js"></script>
+<script src="https://kit.fontawesome.com/389144722e.js" crossorigin="anonymous"></script>
+
+</body>
+
+
+
+</html>

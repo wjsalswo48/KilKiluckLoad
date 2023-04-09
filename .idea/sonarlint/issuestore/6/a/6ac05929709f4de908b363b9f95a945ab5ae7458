@@ -1,0 +1,23 @@
+
+t
+java:S1488$"^Immediately return this expression instead of assigning it to the temporary variable "course".(µüÌÑ
+f
+java:S3655$"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(µüÌÑ
+f
+java:S3655k"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(İÍïì
+f
+java:S3655/"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(üÖæª
+k
+java:S3655u"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(«‰ óùÿÿÿÿ
+f
+java:S3655>"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(îÕ€
+f
+java:S36559"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.( Ñç
+k
+java:S3655C"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(Æùœ¿ıÿÿÿÿ
+f
+java:S3655*"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(€†ã“
+f
+java:S36554"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(´¡Â•
+=
+java:S1905H"'Remove this unnecessary cast to "List".(÷³¾İ

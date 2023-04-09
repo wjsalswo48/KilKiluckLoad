@@ -1,0 +1,21 @@
+
+|
+java:S11923"fDefine a constant instead of duplicating this literal "redirect:/board/getFreeBoard?freeBID=" 3 times.(Àø¿ñ
+r	java:S117M"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(é²à”şÿÿÿÿ8Üèªë0
+m
+java:S3655,"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(¦ßø8 Üèªë0
+m
+java:S3655;"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(¦ßø8 Üèªë0
+V
+java:S4684%"@Replace this persistent entity with a simple POJO or DTO object.(²›À±
+V
+java:S4684%"@Replace this persistent entity with a simple POJO or DTO object.(²›À±
+U	java:S106("9Replace this use of System.out or System.err by a logger.(ïö8¥Üèªë0
+[
+java:S46848"@Replace this persistent entity with a simple POJO or DTO object.(øèˆ£ıÿÿÿÿ
+[
+java:S46848"@Replace this persistent entity with a simple POJO or DTO object.(øèˆ£ıÿÿÿÿ
+[
+java:S4684F"@Replace this persistent entity with a simple POJO or DTO object.(´á´“ûÿÿÿÿ
+[
+java:S4684F"@Replace this persistent entity with a simple POJO or DTO object.(´á´“ûÿÿÿÿ

@@ -1,0 +1,400 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <title>끼룩로드 안내</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js"
+            integrity="sha512-tWHlutFnuG0C6nQRlpvrEhE4QpkG1nn2MOUMWmUeRePl4e3Aki0VB6W1v3oLjFtd0hVOtRQ9PHpSfN6u6/QXkQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link href="../assets/css/main.css" rel="stylesheet"/>
+
+</head>
+
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Main -->
+    <div id="main">
+        <div class="inner">
+
+            <!-- Header -->
+            <header id="header">
+                <a href="/" class="logo"><h1>끼룩로드</h1></a>
+                <ul class="icons">
+                    <li sec:authorize="!isAuthenticated()"><a th:href="@{/system/login}">로그인/회원가입</a></li>
+                    <li sec:authorize="isAuthenticated()" sec:authentication="principal.member.nickName"></li>
+                    <li sec:authorize="isAuthenticated()"><a th:href="@{/system/mypage}">마이페이지</a></li>
+                    <li sec:authorize="isAuthenticated()"><a th:href="@{/system/logout}">로그아웃</a></li>
+                </ul>
+            </header>
+            <div class="road_top">
+                <tr align="center" th:each="road, state:${course.getRoadList()}">
+                    <button th:onclick="|location.href='@{/road/getRoadList(courseID=${course.getCourseID()},index=${state.index})}'|">
+                        <span th:text="${codenameList.get(state.index)}"></span>
+                    </button>
+                </tr>
+            </div>
+
+            <!-- Banner -->
+            <section id="banner">
+                <div class="roadContent">
+                    <header>
+                        <h2><span th:text="${codenameList.get(index)}"/></h2>
+                        <p>함께 걸어요. 아름다운 길, 걷고 싶은 길 갈맷길</p>
+                    </header>
+                    <table>
+                        <tr>
+                            <td>
+                                <h3><strong><h3>코스소개</h3></strong></h3>
+                                <p><span th:text="${road.getGmText()}"/></p>
+                            </td>
+                        </tr>
+                    </table>
+                    <table>
+                        <td>
+                            <strong><span th:text="${codenameList.get(index)}"/> 경로 </strong>
+                        </td>
+                        <tr>
+                            <td>
+                                <span th:text="${road.getGmCourse()}"/>
+                            </td>
+                        </tr>
+                        <td><strong>
+                            <span th:text="${road.getStartPls()}"/>주소(시작지점)
+                        </strong>
+                        </td>
+                        <tr>
+                            <td><span th:text="${road.getStartAddr()}"/></td>
+                        </tr>
+                        <td><strong><span
+                                th:text="${road.getMiddlePls()}"/>주소(중간지점)</strong>
+                        </td>
+                        <tr>
+                            <td><span th:text="${road.getMiddleAdr()}"/></td>
+                        </tr>
+                        <td>
+                            <strong>
+                                <span th:text="${road.getEndPls()}"/>주소(끝지점)
+                            </strong>
+                        </td>
+                        <tr>
+                            <td><span th:text="${road.getEndAddr()}"/></td>
+                        </tr>
+                        <td>
+                            <strong>시작지점 찾기</strong>
+                        </td>
+                        <tr>
+                            <td>
+                                <a th:href="@{|https://map.kakao.com/link/to/갈맷길 ${codenameList.get(index)}, ${road.getStart_lat()},${road.getStart_long()}|}"
+                                   class="button big" target="_blank">길찾기 안내 바로가기</a>
+                            </td>
+                        </tr>
+                        <td>
+                            <strong>끝지점 찾기</strong>
+                        </td>
+                        <tr>
+                            <td>
+                                <a th:href="@{|https://map.kakao.com/link/to/갈맷길 ${codenameList.get(index)} 종점인증대, ${road.getEnd_lat()},${road.getEnd_long()}|}"
+                                   class="button big" target="_blank">길찾기 안내 바로가기</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <span class="image object">
+                        <img th:src="${road.getImg_path()}" alt=""/>
+                </span>
+            </section>
+            <section>
+                <header>
+                    <h2><span th:text="${codenameList.get(index)}"/> 주변 시설</h2>
+                </header>
+                <div class="main">
+                    <input type="radio" id="tab-1" name="show" checked onclick="return true"/>
+                    <input type="radio" id="tab-2" name="show"/>
+                    <input type="radio" id="tab-3" name="show"/>
+                    <input type="radio" id="tab-4" name="show"/>
+                    <input type="radio" id="tab-5" name="show"/>
+                    <div class="tab">
+                        <label for="tab-1">관광지</label>
+                        <label for="tab-2">숙박시설</label>
+                        <label for="tab-3">식당</label>
+                        <label for="tab-4">화장실</label>
+                        <label for="tab-5">포토존</label>
+                    </div>
+
+                    <div class="roadContent">
+                        <div class="content-dis">
+                            <header class="major">
+                                <h2>
+                                    <strong>주변 관광지</strong>
+                                </h2>
+                            </header>
+                            <div class="posts">
+                                <tr th:each="getTourList, state1 : ${road.getTouristAttactionList()}">
+                                    <article>
+                                        <a class="image">
+                                            <img th:src="${getTourList.getThumbnail()}"
+                                                 alt=""/></a>
+                                        <h3><strong><span th:text="${getTourList.getCategory()}"/> : </strong><span
+                                                th:text="${getTourList.getName()}"/></h3>
+                                        <ul class="actions">
+                                            <li>
+                                                <a th:href="@{/road/getTouristList(courseID=${course.getCourseID()},index1=${index}, index2=${state1.index})}"
+                                                   class="button">More</a>
+                                            </li>
+                                        </ul>
+                                    </article>
+                                </tr>
+                            </div>
+                        </div>
+
+                        <div class="content-dis">
+                            <header class="major">
+                                <h2>
+                                    <strong>주변 숙박시설</strong>
+                                </h2>
+                            </header>
+                            <div class="postss">
+                                <article>
+                                    <table class="road_conven">
+                                        <ul>
+
+                                            <tr>
+                                                <th><strong>시설명</strong></th>
+                                                <th><strong>구분</strong></th>
+                                                <th><strong>주소</strong></th>
+                                                <th><strong>링크</strong></th>
+                                                <th><strong>시설 전화번호</strong></th>
+                                                <th><strong>지도</strong></th>
+                                            </tr>
+                                            <tr th:each="hotel, state1 : ${road.getHotelList()}">
+                                                <td><span th:text="${hotel.getName()}"/></td>
+                                                <td><span th:text="${hotel.getHotelConentcatecory()}"/></td>
+                                                <td><span th:text="${hotel.getAddress()}"/></td>
+                                                <td><span th:text="${hotel.getHomepageUrl()}"/></td>
+                                                <td><span th:text="${hotel.getTel()}"/></td>
+                                                <td>
+                                                    <a th:href="@{|https://map.kakao.com/link/map/${hotel.getName()},${hotel.getLatitude()},${hotel.getLongitude}|}"
+                                                       class="fa fa-map-marker fa"/></td>
+                                            </tr>
+                                        </ul>
+                                    </table>
+                                </article>
+                            </div>
+                        </div>
+
+                        <div class="content-dis">
+                            <header class="major">
+                                <h2>
+                                    <strong>주변 식당</strong>
+                                </h2>
+                            </header>
+                            <div class="posts">
+                                <tr th:each="getTourList, state1 : ${road.getArroundRestaurantList()}">
+                                    <article>
+                                        <a class="image">
+                                            <img th:src="${getTourList.getThumbnail()}"
+                                                 alt=""/></a>
+                                        <h3><strong><span th:text="${getTourList.getName()}"/> </strong></h3>
+                                        <ul class="actions">
+                                            <li>
+                                                <a th:href="@{/road/getRestarant(courseID=${course.getCourseID()},index1=${index}, index2=${state1.index})}"
+                                                   class="button">More</a>
+                                            </li>
+                                        </ul>
+                                    </article>
+                                </tr>
+                            </div>
+                        </div>
+
+                        <div class="content-dis">
+                            <header class="major">
+                                <h2><strong>주변 화장실</strong>
+                                </h2>
+                            </header>
+                            <div class="postss">
+                                <article>
+                                    <table class="road_conven">
+                                        <ul>
+                                            <tr>
+                                                <th>화장실 이름</th>
+                                                <th>지번</th>
+                                                <th><strong>관리실</strong></th>
+                                                <th><strong>관리실 번호</strong></th>
+                                                <th><strong>지도</strong></th>
+                                            </tr>
+                                            <tr th:each="roadConven, state1 : ${road.getToiletList()}">
+                                                <td><span th:text="${roadConven.name}"/></td>
+                                                <td><span th:text="${roadConven.getAddress_j()}"/></td>
+                                                <td><span th:text="${roadConven.getManager()}"/></td>
+                                                <td><span th:text="${roadConven.getManager_tel_no()}"/></td>
+                                                <td>
+                                                    <a th:href="@{|https://map.kakao.com/link/map/${roadConven.getName()},${roadConven.getLatitude()},${roadConven.getLongitude}|}"
+                                                       class="fa fa-map-marker fa"/></td>
+                                            </tr>
+                                        </ul>
+                                    </table>
+                                </article>
+                            </div>
+                        </div>
+
+                        <div class="content-dis">
+                            <div>
+                                <header class="major">
+                                    <h2>주변 포토존</h2>
+                                </header>
+                                <div class="postss">
+                                    <article>
+                                        <table class="road_conven">
+                                            <ul>
+                                                <tr>
+                                                    <th><strong>포토존 명</strong></th>
+                                                    <th><strong>위치</strong></th>
+                                                    <th><strong>주소</strong></th>
+                                                    <th><strong>상태</strong></th>
+                                                    <th><strong>지도</strong></th>
+                                                </tr>
+                                                <tr th:each="photozone, state1 : ${road.getPhotoZoneList()}">
+                                                    <td><span th:text="${photozone.getName()}"/></td>
+                                                    <td><span th:text="${photozone.getPos()}"/></td>
+                                                    <td><span th:text="${photozone.getAddress()}"/></td>
+                                                    <td><span th:text="${photozone.getState()}"/></td>
+                                                    <td>
+                                                        <a th:href="@{|https://map.kakao.com/link/map/${photozone.getName()},${photozone.getLatitude()},${photozone.getLongitude}|}"
+                                                           class="fa fa-map-marker fa"/></td>
+                                                </tr>
+                                            </ul>
+                                        </table>
+                                    </article>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <div class="inner">
+            <section id="sideLogo" class="alt">
+                <a href="/">
+                    <img src="/images/logo.png">
+                </a>
+            </section>
+            <!-- Menu -->
+            <nav id="menu">
+                <header class="major">
+                    <h2>Menu</h2>
+                </header>
+                <ul>
+                    <li><a href="/">홈페이지</a></li>
+                    <li><a href="/road/informationRoad">갈맷길 정보</a></li>
+                    <li>
+                        <span class="opener">갈맷길 코스안내</span>
+                        <ul>
+                            <tr th:each="course, state1 : ${courseList}">
+                                <li><a th:href="@{/road/getRoadList(courseID=${course.getCourseID()},index=0)}"><span
+                                        th:text="${state1.index+1+'코스'}"/></a></li>
+                            </tr>
+                        </ul>
+                    </li>
+                    <li>
+                        <span class="opener">게시판</span>
+                        <ul>
+                            <li><a href="../board/getReportBoardList">신고게시판</a></li>
+                            <li><a href="../board/getFreeBoardList">자유게시판</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="../QR/QRGuide">QR체크</a></li>
+                    <li><a href="../shop/productsList">포인트 쇼핑몰</a></li>
+                    <li sec:authorize="hasAnyRole('ROLE_ADMIN')">
+                        <span class="opener">관리자 모드</span>
+                        <ul>
+                            <li>
+                                <span> 정보 가져오기 </span>
+                                <ul>
+                                    <li><a href="/json/insertCourse">코스 가져오기</a></li>
+                                    <li><a href="/json/roadJson">구간 가져오기</a></li>
+                                    <li><a href="/json/touristJson">여행지 정보 가져오기</a></li>
+                                    <li><a href="/json/toiletJson">화장실 정보 가져오기</a></li>
+                                    <li><a href="/json/restaurantJson">식당 정보 가져오기</a></li>
+                                    <li><a href="/json/hotelJson">숙박업소 정보 가져오기</a></li>
+                                    <li><a href="/json/photoZoneJson">포토존 정보 가져오기</a></li>
+                                    <li><a href="/json/allJSON">모든 정보 가져오기</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <span> 엑셀 다운로드 </span>
+                                <ul>
+                                    <li><a th:href="@{/excel/courseDownload}">코스 정보 엑셀 다운로드</a></li>
+                                    <li><a th:href="@{/excel/roadDownload}">구간 정보 엑셀 다운로드</a></li>
+                                    <li><a th:href="@{/excel/toiletDownload}">화장실 정보 엑셀 다운로드</a></li>
+                                    <li><a th:href="@{/excel/ptozoneDownload}">포토존 정보 엑셀 다운로드</a></li>
+                                    <li><a th:href="@{/excel/TouristDownload}">여행지 정보 엑셀 다운로드</a></li>
+                                    <li><a th:href="@{/excel/HotelDownload}">호텔 정보 엑셀 다운로드</a></li>
+                                    <li><a th:href="@{/excel/restaurantDownload}">레스토랑 정보 엑셀 다운로드</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <span> 정보 추가,수정,삭제 </span>
+                                <ul>
+                                    <li><a th:href="@{/excel/insert}">구간 정보 엑셀</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <!-- Section -->
+            <section>
+                <header class="major">
+                    <h2>Team. SixSense</h2>
+                </header>
+                <p>클라우드 No.1 메가존클라우드와 함께하는</p>
+                <p>클라우드 네이티브 애플리케이션 개발자 양성과정</p>
+                <ul class="contact">
+                    <li class="icon solid fa-handshake">광안대교 2반 3조</li>
+                    <li class="icon solid fa-users">
+                        <p>김석림 김지훈 손용균</p>
+                        <p>윤기영 전민재 정수승</p>
+                    </li>
+                    <li class="icon solid fa-home">
+                        <p>부산광역시 해운대구 센텀동로 41</p>
+                        <p>센텀벤처타운 5층 광안대교 2반</p>
+                    </li>
+                </ul>
+            </section>
+            <!-- Footer -->
+            <footer id="footer">
+                <p class="copyright">&copy; SixSense. All rights reserved. Demo Images: <a
+                        href="https://busan.go.kr">부산광역시, </a><a href="https://galmaetgil.org">걷고싶은부산.</a> Design: <a
+                        href="https://html5up.net">HTML5
+                    UP</a>.</p>
+            </footer>
+        </div>
+    </div>
+
+</div>
+
+<!-- Scripts -->
+<script src="../assets/js/jquery.min.js"></script>
+<script src="../assets/js/browser.min.js"></script>
+<script src="../assets/js/breakpoints.min.js"></script>
+<script src="../assets/js/util.js"></script>
+<script src="../assets/js/main.js"></script>
+
+
+</body>
+
+</html>

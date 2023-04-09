@@ -1,0 +1,86 @@
+@charset "UTF-8";
+
+
+
+/*.main_text0 {*/
+/*    width: 100%;*/
+/*    height: auto !important;*/
+/*    background: #f1f2f3;*/
+/*}*/
+
+/*.main_text0>.contents2 {*/
+/*    display: flex;*/
+/*    width: 1280px;*/
+/*    height: auto;*/
+/*    margin: auto;*/
+/*    flex-direction: column;*/
+/*}*/
+
+/*.restcontent{*/
+/*    width: 1280px;*/
+/*    height: 850px;*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*}*/
+/*.restwrap{*/
+/*    position: relative;*/
+/*    width: 600px;*/
+/*    height: 950px;*/
+/*    top: 50%;*/
+/*    left: 25%;*/
+/*    transform: translate(-60%, -50%); !* 정렬 *!*/
+/*}*/
+/*.restwrap2{*/
+/*    position: relative;*/
+/*    width: 600px;*/
+/*    height: 800px;*/
+/*    top: 30%;*/
+/*    left: 25%;*/
+/*    transform: translate(-50%, -32%); !* 정렬 *!*/
+/*    margin-top: 11px;*/
+/*}*/
+/*.restwrap> div{*/
+/*    width:650px;*/
+/*    height:650px;*/
+/*    border:1px solid #333;*/
+/*    float:left;*/
+/*    margin: 5px;*/
+/*    box-sizing:border-box; !* border 또한 위치값을 갖기에 div크기가 더 커짐을 방지하기 위한 *!*/
+/*}*/
+.restwrap2> div{
+/*     width:640px; */
+/*     height:388px; */
+/*     padding-top: 75%; */
+ padding-top: 40%;
+}
+
+#map {
+ padding-top: 40%;
+ margin-bottom: 10%;
+/*     width: 550px; */
+/*     height: 450px; */
+/*     margin: 10px; */
+}
+
+#roadview {
+ padding-top: 40%;
+/* 	float: left; */
+/* 	width: 25%; */
+/* 	height: 25%; */
+/*     width: 550px; */
+/*     height: 450px; */
+/*     margin: 10px; */
+}
+
+.map1> div{
+	width: 50%;
+ 	margin: 0 auto;
+    float: left;
+/*     margin-bottom: 50px; */
+}
+.hAddr> div{
+    /*float: ;*/
+}
+/*.restwrap > div:nth-child(3) {*/
+/*    clear:both; !* float:left 의 줄바꿈을 위한 *!*/
+/*}*/

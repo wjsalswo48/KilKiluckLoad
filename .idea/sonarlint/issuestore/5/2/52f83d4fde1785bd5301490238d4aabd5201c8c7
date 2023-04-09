@@ -1,0 +1,14 @@
+
+f
+java:S36556"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(¦ßø
+f
+java:S3655F"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(¦ßø
+g
+java:S3655…"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(¦ßø
+f
+java:S3655&"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(¦ßø
+f
+java:S3655|"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(¦ßø
+r
+java:S4144E"\Update this method so that its implementation is not identical to "getFreeBoard" on line 53.(é«±Ï
+V	java:S125e"<This block of commented-out lines of code should be removed.(ş¿ı¯øÿÿÿÿ
